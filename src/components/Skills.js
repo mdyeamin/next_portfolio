@@ -6,23 +6,23 @@ import { Code2, Server, Wrench, Database } from "lucide-react";
 const skillsData = [
   {
     category: "Frontend",
-    icon: <Code2 className="text-primary mb-4" size={32} />,
-    skills: ["React.js", "Next.js", "JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3", "Tailwind CSS", "DaisyUI", "Bootstrap", "Material-UI", "Redux"]
+    icon: <Code2 className="text-primary" size={24} />,
+    skills: ["React.js", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS", "Framer Motion"]
   },
   {
     category: "Backend",
-    icon: <Server className="text-secondary mb-4" size={32} />,
-    skills: ["Node.js", "Express.js", "Axios", "RESTful APIs"]
+    icon: <Server className="text-secondary" size={24} />,
+    skills: ["Node.js", "Express.js", "REST APIs", "Axios"]
   },
   {
     category: "Database & BaaS",
-    icon: <Database className="text-accent mb-4" size={32} />,
-    skills: ["MongoDB", "Firebase", "Mongoose"]
+    icon: <Database className="text-accent" size={24} />,
+    skills: ["MongoDB", "BetterAuth"]
   },
   {
     category: "Tools & Others",
-    icon: <Wrench className="text-primary mb-4" size={32} />,
-    skills: ["Git & GitHub", "Figma", "VS Code", "Linux", "NPM", "Postman"]
+    icon: <Wrench className="text-primary" size={24} />,
+    skills: ["Git", "GitHub", "Figma", "VS Code", "Linux", "NPM"]
   }
 ];
 
@@ -41,24 +41,29 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-24 relative bg-black/40">
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
+    <section id="skills" className="py-20 relative bg-black/40">
+      <div className="container mx-auto px-5 md:px-12 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            <span className="text-white">The</span> <span className="text-gradient">Arsenal</span>
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 relative inline-block text-white">
+            The Arsenal
+            <motion.div 
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent absolute -bottom-2 left-0"
+            />
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto mb-4">Building robust applications with a modern and scalable stack.</p>
-          <div className="h-1 w-20 bg-secondary mx-auto rounded-full"></div>
+          <p className="text-gray-400 max-w-xl mx-auto mb-4 text-xs md:text-sm mt-4">Building robust applications with a modern and scalable stack.</p>
         </motion.div>
 
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 md:gap-10"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -69,22 +74,22 @@ export default function Skills() {
               key={index} 
               variants={itemVariants}
               whileHover={{ scale: 1.02 }}
-              className="glass-card p-10 rounded-[2.5rem] group hover:border-primary/40 transition-all duration-500 relative overflow-hidden flex flex-col items-center text-center shadow-2xl"
+              className="glass-card p-6 md:p-8 rounded-[1.5rem] group hover:border-primary/40 transition-all duration-500 relative overflow-hidden flex flex-col items-center text-center shadow-xl"
             >
               {/* Shimmer/Pulse Effect */}
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-1000"></div>
               
-              <div className="relative z-10 mb-6 p-4 rounded-2xl bg-white/5 border border-white/10 group-hover:border-primary/30 group-hover:text-primary transition-all duration-500">
+              <div className="relative z-10 mb-5 w-14 h-16 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 group-hover:border-primary/30 group-hover:bg-primary/5 transition-all duration-500">
                 {group.icon}
               </div>
               
-              <h3 className="text-2xl font-bold text-white mb-8 relative z-10">{group.category}</h3>
+              <h3 className="text-lg font-bold text-white mb-6 relative z-10">{group.category}</h3>
               
-              <div className="flex flex-wrap justify-center gap-3 relative z-10">
+              <div className="flex flex-wrap justify-center gap-2 relative z-10">
                 {group.skills.map((skill, i) => (
                   <span 
                     key={i} 
-                    className="px-4 py-1.5 text-xs font-semibold bg-[#0a0a0a] border border-white/10 rounded-lg text-gray-400 group-hover:border-primary/30 group-hover:text-white group-hover:shadow-[0_0_10px_rgba(0,210,255,0.2)] transition-all duration-300"
+                    className="px-3 py-1.5 text-[9px] font-bold bg-[#111] border border-white/5 rounded-md text-white group-hover:border-primary/20 transition-all duration-300 uppercase tracking-tighter"
                   >
                     {skill}
                   </span>

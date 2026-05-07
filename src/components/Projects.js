@@ -8,6 +8,14 @@ import { useEffect, useRef, useState } from "react";
 
 const projectsData = [
   {
+    title: "Keen Keeper Friends",
+    tech: ["Next.js", "Tailwind CSS", "Framer Motion", "Lucide Icons"],
+    live: "https://keen-keeper-friends.vercel.app/",
+    github: "https://github.com/mdyeamin/NextJs-keen-keeper-friends",
+    description: "A collaborative friendship management platform built with Next.js, featuring a clean, interactive UI.",
+    image: "/project_mockup.png"
+  },
+  {
     title: "SkillSphere",
     tech: ["Next.js", "Tailwind CSS", "HeroUI", "BetterAuth", "Framer Motion", "Swiper.js", "MongoDB"],
     live: "https://skill-sphere-xi.vercel.app/",
@@ -102,9 +110,28 @@ export default function Projects() {
     }
   };
 
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft = scrollLeft - walk;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
   return (
-    <section id="projects" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6 md:px-12 relative z-10 mb-16">
+    <section id="projects" className="py-20 relative overflow-hidden bg-black/20">
+      <div className="container mx-auto px-5 md:px-12 relative z-10 mb-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -112,75 +139,104 @@ export default function Projects() {
           transition={{ duration: 0.5 }}
           className="text-center"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            <span className="text-white">Featured</span> <span className="text-gradient">Creations</span>
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 relative inline-block text-white">
+            Featured Creations
+            <motion.div 
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent absolute -bottom-2 left-0"
+            />
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto mb-4">A collection of my recent web development projects and experiments.</p>
-          <div className="h-1 w-20 bg-accent mx-auto rounded-full"></div>
+          <p className="text-gray-400 max-w-xl mx-auto mb-4 text-xs md:text-sm mt-4 px-4">
+            A collection of my recent web development projects and experiments, designed for performance and user experience.
+          </p>
         </motion.div>
       </div>
 
       {/* Interactive Marquee Slider */}
-      <div className="relative w-full py-10">
+      <div className="relative w-full py-6">
         <div
           ref={scrollRef}
-          className="flex gap-8 px-4 overflow-x-hidden cursor-grab active:cursor-grabbing no-scrollbar"
+          className="flex gap-4 md:gap-6 px-5 overflow-x-hidden cursor-grab active:cursor-grabbing no-scrollbar touch-pan-y"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={handleMouseLeave}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           onMouseMove={handleMouseMove}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
           style={{ width: "100%", scrollBehavior: "auto" }}
         >
           {marqueeItems.map((project, index) => (
             <div
               key={index}
-              className="w-[280px] sm:w-[320px] md:w-[400px] glass-card rounded-[2rem] overflow-hidden flex flex-col shrink-0 hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)] transition-all duration-500 pointer-events-auto group/card border-white/5 hover:border-primary/30"
+              className="w-[240px] sm:w-[280px] md:w-[320px] glass-card rounded-[1.5rem] overflow-hidden flex flex-col shrink-0 hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-all duration-500 pointer-events-auto group/card border-white/5 hover:border-primary/30"
             >
               {/* Card Header/Mock Image Area */}
-              <div className="h-56 relative overflow-hidden pointer-events-auto">
+              <div className="h-32 md:h-44 relative overflow-hidden pointer-events-auto">
                 <Image 
                   src={project.image} 
                   alt={project.title} 
                   layout="fill" 
                   objectFit="cover" 
                   className="group-hover/card:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 768px) 240px, (max-width: 1024px) 280px, 320px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover/card:opacity-40 transition-opacity duration-500"></div>
                 
-                {/* Hover Details Button Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 z-20">
-                  <a href={project.live} target="_blank" rel="noreferrer">
-                    <motion.button 
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-6 py-2.5 bg-white text-black font-bold rounded-full shadow-2xl transform translate-y-8 group-hover/card:translate-y-0 transition-transform duration-500 flex items-center gap-2 hover:bg-primary hover:text-white text-sm"
-                    >
-                      View Project <ExternalLink size={16} />
-                    </motion.button>
-                  </a>
+                {/* Hover Details Button Overlay (Desktop Only) */}
+                <div className="absolute inset-0 hidden lg:flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 z-20">
+                  <div className="flex gap-2">
+                    <a href={project.live} target="_blank" rel="noreferrer">
+                      <motion.button 
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="px-4 py-2 bg-white text-black font-bold rounded-full shadow-2xl transition-all flex items-center gap-2 hover:bg-primary hover:text-white text-[10px]"
+                      >
+                        Live <ExternalLink size={12} />
+                      </motion.button>
+                    </a>
+                    <a href={project.github} target="_blank" rel="noreferrer">
+                      <motion.button 
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="px-4 py-2 bg-black/50 backdrop-blur-md text-white font-bold rounded-full shadow-2xl border border-white/10 transition-all flex items-center gap-2 hover:bg-white hover:text-black text-[10px]"
+                      >
+                        Code <FaGithub size={12} />
+                      </motion.button>
+                    </a>
+                  </div>
                 </div>
               </div>
               
               {/* Card Body */}
-              <div className="p-8 flex flex-col flex-grow pointer-events-auto bg-gradient-to-b from-transparent to-black/20">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-2xl font-bold text-white group-hover/card:text-primary transition-colors">{project.title}</h3>
-                  <a href={project.github} target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                    <FaGithub size={22} />
-                  </a>
+              <div className="p-4 md:p-6 flex flex-col flex-grow pointer-events-auto bg-gradient-to-b from-transparent to-black/30">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-sm md:text-lg font-bold text-white group-hover/card:text-primary transition-colors">{project.title}</h3>
                 </div>
                 
-                <p className="text-gray-400 mb-8 flex-grow text-sm leading-relaxed line-clamp-2 group-hover/card:line-clamp-none transition-all duration-300">
+                <p className="text-gray-400 mb-4 flex-grow text-[10px] md:text-[12px] leading-relaxed line-clamp-2 group-hover/card:line-clamp-none transition-all duration-300">
                   {project.description}
                 </p>
                 
-                <div className="flex flex-wrap gap-2 mt-auto">
+                <div className="flex flex-wrap gap-1.5 mb-4 md:mb-0">
                   {project.tech.map((t, i) => (
-                    <span key={i} className="text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full bg-primary/5 text-primary border border-primary/10">
+                    <span key={i} className="text-[7px] md:text-[9px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20">
                       {t}
                     </span>
                   ))}
+                </div>
+
+                {/* Mobile/Tablet Action Buttons (Consolidated Row) */}
+                <div className="flex gap-2 mt-4 lg:hidden">
+                  <a href={project.live} target="_blank" rel="noreferrer" className="flex-[2] py-2 bg-primary text-white text-center rounded-lg font-bold text-[9px] flex items-center justify-center gap-1 shadow-lg shadow-primary/20">
+                    Live <ExternalLink size={10} />
+                  </a>
+                  <a href={project.github} target="_blank" rel="noreferrer" className="flex-1 py-2 bg-white/5 text-white text-center rounded-lg font-bold text-[9px] border border-white/10 flex items-center justify-center gap-1">
+                    Code <FaGithub size={10} />
+                  </a>
                 </div>
               </div>
             </div>

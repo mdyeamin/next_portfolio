@@ -57,15 +57,17 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, type: "spring", bounce: 0.5 }}
-          className="relative w-40 h-40 md:w-48 md:h-48 mb-8 rounded-full p-1 bg-gradient-to-tr from-primary via-accent to-secondary"
+          className="relative w-40 h-40 md:w-48 md:h-48 mb-8"
         >
-          <div className="w-full h-full rounded-full overflow-hidden border-4 border-black/80">
+          <div className="w-full h-full rounded-full overflow-hidden relative">
             <Image
               src="https://scontent.fdac5-2.fna.fbcdn.net/v/t39.30808-6/552505779_2295899874191781_1986940869533248310_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=M61m2zSNIb8Q7kNvwE2SJY0&_nc_oc=AdrFFssWTX9jFynENiDAlKsSstC0Tw0xh4Xmpk2iTQ_8YCu5PUdsMvhF8vNzj2SIyRc&_nc_zt=23&_nc_ht=scontent.fdac5-2.fna&_nc_gid=HxU3LlPAQrV3yz9j2nI3Zg&_nc_ss=7b2a8&oh=00_Af6q-8ff1BLgzBHgbce2aD0ouq0bZ2c2FjXM6VE6fz_zGQ&oe=6A022E92"
               alt="Md Yeamin Profile"
               layout="fill"
               objectFit="cover"
               className="rounded-full"
+              priority={true}
+              sizes="(max-width: 768px) 160px, 192px"
             />
           </div>
         </motion.div>
@@ -87,34 +89,27 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4"
+          className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-4 relative inline-block"
         >
-          Hi, I&apos;m <span className="text-white">Md</span> <span className="text-gradient">Yeamin</span>
+          Hi, I&apos;m <span className="text-gradient">Md Yeamin</span>
         </motion.h1>
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="h-12 md:h-16 mb-6 flex flex-col md:flex-row items-center justify-center gap-3"
+          className="mb-8"
         >
-          <h2 className="text-2xl md:text-4xl font-bold text-gray-400">
-            I am a
+          <h2 className="text-xl md:text-4xl font-bold text-gray-400">
+            I am a <span className="font-extrabold text-white">MERN Stack Developer</span>
           </h2>
-          <motion.h2 
-            animate={controls}
-            initial={{ backgroundPosition: "0% 50%", filter: "brightness(0.8)" }}
-            className="text-2xl md:text-4xl font-extrabold thunder-text"
-          >
-            MERN Stack Developer
-          </motion.h2>
         </motion.div>
 
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="max-w-2xl text-lg md:text-xl text-gray-400 mb-10 leading-relaxed"
+          className="max-w-xl text-sm md:text-lg text-gray-400 mb-10 leading-relaxed px-4"
         >
           Building the web of tomorrow with precision and creativity. I turn complex problems into elegant, scalable digital solutions.
         </motion.p>
@@ -123,23 +118,23 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex flex-col sm:flex-row gap-4"
+          className="flex flex-row gap-3 px-4"
         >
           <a 
             href="/cv.pdf" 
             download
-            className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold text-black bg-white rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95"
+            className="group relative inline-flex items-center justify-center gap-2 px-5 md:px-8 py-3 md:py-4 text-[10px] md:text-sm font-bold text-black bg-white rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95 whitespace-nowrap"
           >
             <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <span className="relative group-hover:text-white transition-colors">Download CV</span>
-            <Download size={18} className="relative group-hover:text-white transition-colors group-hover:translate-y-1" />
+            <Download size={14} className="relative group-hover:text-white transition-colors group-hover:translate-y-1" />
           </a>
           <a 
             href="#projects" 
-            className="group inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold text-white glass-card rounded-full hover:bg-white/10 transition-all hover:scale-105 active:scale-95"
+            className="group inline-flex items-center justify-center gap-2 px-5 md:px-8 py-3 md:py-4 text-[10px] md:text-sm font-bold text-white glass-card rounded-full hover:bg-white/10 transition-all hover:scale-105 active:scale-95 whitespace-nowrap"
           >
-            <span>View My Work</span>
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <span>View Work</span>
+            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
           </a>
         </motion.div>
       </div>

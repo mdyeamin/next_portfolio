@@ -25,65 +25,67 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            <span className="text-white">About</span> <span className="text-gradient">Me</span>
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 relative inline-block text-white">
+            About Me
+            <motion.div 
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent absolute -bottom-2 left-0"
+            />
           </h2>
-          <div className="h-1 w-20 bg-primary mx-auto rounded-full"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Main Description */}
           <motion.div 
-            className="lg:col-span-7 glass-card p-8 md:p-10 rounded-3xl"
+            className="lg:col-span-7 glass-card p-6 md:p-8 rounded-2xl"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-2xl font-semibold mb-6 flex items-center gap-3 text-white">
-              <Briefcase className="text-primary" />
+            <h3 className="text-xl font-semibold mb-4 flex items-center gap-3 text-white">
+              <Briefcase className="text-primary" size={20} />
               Professional Journey
             </h3>
-            <div className="space-y-4 text-gray-400 text-lg leading-relaxed">
+            <div className="space-y-4 text-gray-400 text-sm md:text-base leading-relaxed">
               <p>
                 I am a passionate <strong className="text-gray-200">Full Stack Web Developer</strong> with a focus on building clean, responsive, and high-performance web applications. I love the process of turning a complex problem into a simple and elegant digital solution.
               </p>
               <p>
                 Currently, I am specializing in the <strong className="text-gray-200">MERN Stack</strong> (MongoDB, Express.js, React, Node.js). I have a deep interest in front-end aesthetics, which led me to master Tailwind CSS and daisyUI to create modern and user-friendly interfaces.
               </p>
-              <p>
-                Beyond coding, I am an enthusiast of modern design trends and constantly exploring new tools to improve the user experience. I believe in continuous learning and am always looking for opportunities to collaborate on impactful projects.
-              </p>
             </div>
           </motion.div>
 
           {/* Quick Facts & Education */}
           <motion.div 
-            className="lg:col-span-5 space-y-6"
+            className="lg:col-span-5 space-y-4"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <motion.div variants={itemVariants} className="glass-card p-6 rounded-2xl flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                <MapPin className="text-primary" />
+            <motion.div variants={itemVariants} className="glass-card p-4 rounded-xl flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+                <MapPin className="text-primary" size={18} />
               </div>
               <div>
-                <p className="text-sm text-gray-500 font-medium mb-1">Location</p>
-                <p className="text-white font-medium">Bangladesh</p>
+                <p className="text-[10px] text-gray-500 font-medium mb-0.5">Location</p>
+                <p className="text-white font-medium text-sm">Bangladesh</p>
               </div>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="glass-card p-6 rounded-2xl flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center shrink-0">
-                <Calendar className="text-secondary" />
+            <motion.div variants={itemVariants} className="glass-card p-4 rounded-xl flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center shrink-0">
+                <Calendar className="text-secondary" size={18} />
               </div>
               <div>
-                <p className="text-sm text-gray-500 font-medium mb-1">Experience</p>
-                <p className="text-white font-medium">Since 2026</p>
+                <p className="text-[10px] text-gray-500 font-medium mb-0.5">Experience</p>
+                <p className="text-white font-medium text-sm">1y+</p>
               </div>
             </motion.div>
 

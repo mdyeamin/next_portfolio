@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Background from "@/components/Background";
 import SideBar from "@/components/SideBar";
+import MobileNav from "@/components/MobileNav";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -16,13 +17,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} antialiased bg-background text-foreground min-h-screen selection:bg-primary/30`}>
+      <body 
+        className={`${inter.variable} antialiased bg-background text-foreground min-h-screen selection:bg-primary/30`}
+        suppressHydrationWarning
+      >
         {/* Animated Background Gradients */}
         <div className="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/20 blur-[120px] pointer-events-none -z-10" />
         <div className="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-accent/10 blur-[120px] pointer-events-none -z-10" />
         
         <Background />
         <SideBar />
+        <MobileNav />
         {children}
       </body>
     </html>

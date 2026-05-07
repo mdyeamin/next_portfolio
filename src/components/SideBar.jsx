@@ -13,7 +13,7 @@ const navItems = [
 
 const NavItem = ({ item, isActive }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const expanded = isHovered || isActive;
+  const active = isHovered || isActive;
 
   const handleScroll = (e) => {
     e.preventDefault();
@@ -30,38 +30,15 @@ const NavItem = ({ item, isActive }) => {
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative flex items-center mb-6"
+      className="relative flex items-center mb-5"
     >
       <a href={item.href} onClick={handleScroll} className="relative z-10 flex items-center cursor-pointer">
         <motion.div
-          layout
-          className={`flex items-center rounded-full overflow-hidden nav-bubble transition-colors duration-300 border ${expanded ? "border-primary/50 bg-transparent" : "border-transparent bg-transparent"}`}
-          animate={{
-            width: expanded ? "auto" : "48px",
-            height: "48px",
-            paddingRight: expanded ? "20px" : "0px",
-          }}
-          transition={{
-            type: "spring",
-            stiffness: 300,
-            damping: 20
-          }}
+          className={`flex items-center justify-center w-10 h-10 transition-colors duration-300 ${active ? "text-primary" : "text-white/40"}`}
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
         >
-          <div className={`w-[48px] h-[48px] flex items-center justify-center shrink-0 transition-colors ${expanded ? "text-primary" : "text-gray-400"}`}>
-            {item.icon}
-          </div>
-          
-          <motion.span
-            className={`text-sm font-medium whitespace-nowrap ${expanded ? "text-primary" : "text-gray-400"}`}
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ 
-              opacity: expanded ? 1 : 0, 
-              x: expanded ? 0 : -10 
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            {item.name}
-          </motion.span>
+          {item.icon}
         </motion.div>
       </a>
     </div>
