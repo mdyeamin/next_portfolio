@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col relative pb-24 md:pb-0 pl-0 md:pl-24">
+    <main className="flex min-h-screen flex-col relative lg:pl-24">
       <Hero />
       <About />
       <Skills />

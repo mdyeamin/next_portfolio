@@ -79,6 +79,15 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+
+  .thunder-text {
+    background: linear-gradient(135deg, #00d2ff, #7928ca, #ff007f, #00d2ff);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: background-position 0.2s ease;
+  }
 }
 
 /* Custom Scrollbar */

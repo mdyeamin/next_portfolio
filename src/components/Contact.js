@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFacebook, FaTwitter } from "react-icons/fa";
 
 export default function Contact() {
   return (
@@ -37,13 +37,13 @@ export default function Contact() {
               </p>
               
               <div className="space-y-6">
-                <a href="mailto:coderyeamin@gmail.com" className="flex items-center gap-4 text-gray-300 hover:text-primary transition-colors group">
+                <a href="mailto:ahmedyeamin05@gmail.com" className="flex items-center gap-4 text-gray-300 hover:text-primary transition-colors group">
                   <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                     <Mail size={20} className="text-white group-hover:text-primary" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Email</p>
-                    <p className="font-medium">coderyeamin@gmail.com</p>
+                    <p className="font-medium">ahmedyeamin05@gmail.com</p>
                   </div>
                 </a>
                 
@@ -69,11 +69,17 @@ export default function Contact() {
               </div>
 
               <div className="flex gap-4 mt-8 pt-8 border-t border-white/10">
-                <a href="https://github.com/mdyeamin" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-all">
+                <a href="https://github.com/mdyeamin" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-all shadow-lg hover:shadow-primary/20">
                   <FaGithub size={18} />
                 </a>
-                <a href="https://www.linkedin.com/in/mdyeamin05/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-[#0077b5] hover:text-white transition-all">
+                <a href="https://www.linkedin.com/in/mdyeamin05/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-[#0077b5] hover:text-white transition-all shadow-lg hover:shadow-blue-500/20">
                   <FaLinkedin size={18} />
+                </a>
+                <a href="https://www.facebook.com/mdyeamin.05" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-[#1877f2] hover:text-white transition-all shadow-lg hover:shadow-blue-600/20">
+                  <FaFacebook size={18} />
+                </a>
+                <a href="https://twitter.com/yeamin050" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-black hover:text-white transition-all shadow-lg hover:shadow-white/10">
+                  <FaTwitter size={18} />
                 </a>
               </div>
             </motion.div>
@@ -91,7 +97,7 @@ export default function Contact() {
                 <h4 className="text-2xl font-bold text-white mb-4">Have a project in mind?</h4>
                 <p className="text-gray-400 text-base mb-8">Drop me an email directly. I reply fast.</p>
                 <a 
-                  href="mailto:coderyeamin@gmail.com"
+                  href="mailto:ahmedyeamin05@gmail.com"
                   className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-white text-black font-bold rounded-xl hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] transition-all active:scale-95"
                 >
                   <Send size={18} />

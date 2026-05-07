@@ -135,52 +135,52 @@ export default function Projects() {
           {marqueeItems.map((project, index) => (
             <div
               key={index}
-              className="w-[300px] sm:w-[350px] md:w-[450px] glass-card rounded-3xl overflow-hidden flex flex-col shrink-0 hover:-translate-y-2 transition-transform duration-300 pointer-events-none select-none"
+              className="w-[280px] sm:w-[320px] md:w-[400px] glass-card rounded-[2rem] overflow-hidden flex flex-col shrink-0 hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)] transition-all duration-500 pointer-events-auto group/card border-white/5 hover:border-primary/30"
             >
               {/* Card Header/Mock Image Area */}
-              <div className="h-56 relative overflow-hidden group/image pointer-events-auto">
-                <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover/image:opacity-100 transition-opacity duration-500 z-10"></div>
+              <div className="h-56 relative overflow-hidden pointer-events-auto">
                 <Image 
                   src={project.image} 
                   alt={project.title} 
                   layout="fill" 
                   objectFit="cover" 
-                  className="group-hover/image:scale-110 transition-transform duration-500 pointer-events-none"
+                  className="group-hover/card:scale-105 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover/card:opacity-40 transition-opacity duration-500"></div>
+                
+                {/* Hover Details Button Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 z-20">
+                  <a href={project.live} target="_blank" rel="noreferrer">
+                    <motion.button 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="px-6 py-2.5 bg-white text-black font-bold rounded-full shadow-2xl transform translate-y-8 group-hover/card:translate-y-0 transition-transform duration-500 flex items-center gap-2 hover:bg-primary hover:text-white text-sm"
+                    >
+                      View Project <ExternalLink size={16} />
+                    </motion.button>
+                  </a>
+                </div>
               </div>
               
               {/* Card Body */}
-              <div className="p-6 flex flex-col flex-grow pointer-events-auto">
-                <h3 className="text-2xl font-bold text-white mb-3 hover:text-primary transition-colors">{project.title}</h3>
-                <p className="text-gray-400 mb-6 flex-grow text-sm">{project.description}</p>
+              <div className="p-8 flex flex-col flex-grow pointer-events-auto bg-gradient-to-b from-transparent to-black/20">
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-2xl font-bold text-white group-hover/card:text-primary transition-colors">{project.title}</h3>
+                  <a href={project.github} target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                    <FaGithub size={22} />
+                  </a>
+                </div>
                 
-                <div className="flex flex-wrap gap-2 mb-6">
+                <p className="text-gray-400 mb-8 flex-grow text-sm leading-relaxed line-clamp-2 group-hover/card:line-clamp-none transition-all duration-300">
+                  {project.description}
+                </p>
+                
+                <div className="flex flex-wrap gap-2 mt-auto">
                   {project.tech.map((t, i) => (
-                    <span key={i} className="text-xs font-medium px-2 py-1 rounded-md bg-white/5 text-primary border border-primary/20">
+                    <span key={i} className="text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full bg-primary/5 text-primary border border-primary/10">
                       {t}
                     </span>
                   ))}
-                </div>
-                
-                <div className="flex items-center gap-4 mt-auto pt-4 border-t border-white/10">
-                  <a 
-                    href={project.live} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="flex items-center gap-2 text-sm font-bold text-white hover:text-primary transition-colors"
-                  >
-                    <ExternalLink size={16} />
-                    Live Demo
-                  </a>
-                  <a 
-                    href={project.github} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white transition-colors ml-auto"
-                  >
-                    <FaGithub size={16} />
-                    Source
-                  </a>
                 </div>
               </div>
             </div>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Mail } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFacebook, FaTwitter } from "react-icons/fa";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -61,6 +61,12 @@ export default function Navbar() {
             <a href="https://www.linkedin.com/in/mdyeamin05/" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
               <FaLinkedin size={20} />
             </a>
+            <a href="https://www.facebook.com/mdyeamin.05" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-blue-600 transition-colors">
+              <FaFacebook size={20} />
+            </a>
+            <a href="https://twitter.com/yeamin050" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
+              <FaTwitter size={20} />
+            </a>
           </div>
         </div>
 
@@ -100,7 +106,13 @@ export default function Navbar() {
                 <a href="https://www.linkedin.com/in/mdyeamin05/" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white">
                   <FaLinkedin size={24} />
                 </a>
-                <a href="mailto:coderyeamin@gmail.com" className="text-gray-400 hover:text-white">
+                <a href="https://www.facebook.com/mdyeamin.05" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-blue-600">
+                  <FaFacebook size={24} />
+                </a>
+                <a href="https://twitter.com/yeamin050" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white">
+                  <FaTwitter size={24} />
+                </a>
+                <a href="mailto:ahmedyeamin05@gmail.com" className="text-gray-400 hover:text-white">
                   <Mail size={24} />
                 </a>
               </div>

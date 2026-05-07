@@ -58,7 +58,7 @@ export default function Skills() {
         </motion.div>
 
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 md:gap-10"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -68,18 +68,23 @@ export default function Skills() {
             <motion.div 
               key={index} 
               variants={itemVariants}
-              className="glass-card p-8 rounded-3xl group hover:border-primary/30 transition-colors duration-300 relative overflow-hidden"
+              whileHover={{ scale: 1.02 }}
+              className="glass-card p-10 rounded-[2.5rem] group hover:border-primary/40 transition-all duration-500 relative overflow-hidden flex flex-col items-center text-center shadow-2xl"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/5 to-transparent rounded-bl-full -z-10 group-hover:from-primary/10 transition-colors"></div>
+              {/* Shimmer/Pulse Effect */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-1000"></div>
               
-              {group.icon}
-              <h3 className="text-xl font-semibold text-white mb-6">{group.category}</h3>
+              <div className="relative z-10 mb-6 p-4 rounded-2xl bg-white/5 border border-white/10 group-hover:border-primary/30 group-hover:text-primary transition-all duration-500">
+                {group.icon}
+              </div>
               
-              <div className="flex flex-wrap gap-2">
+              <h3 className="text-2xl font-bold text-white mb-8 relative z-10">{group.category}</h3>
+              
+              <div className="flex flex-wrap justify-center gap-3 relative z-10">
                 {group.skills.map((skill, i) => (
                   <span 
                     key={i} 
-                    className="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300 group-hover:border-white/20 transition-colors"
+                    className="px-4 py-1.5 text-xs font-semibold bg-[#0a0a0a] border border-white/10 rounded-lg text-gray-400 group-hover:border-primary/30 group-hover:text-white group-hover:shadow-[0_0_10px_rgba(0,210,255,0.2)] transition-all duration-300"
                   >
                     {skill}
                   </span>

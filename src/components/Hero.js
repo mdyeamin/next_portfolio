@@ -1,10 +1,48 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
 import Image from "next/image";
+import { useEffect } from "react";
 
 export default function Hero() {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    let timeoutId;
+    
+    const triggerThunder = async () => {
+      // Strike sequence: sudden bright flash + background movement + vibration
+      await controls.start({
+        filter: ["brightness(1)", "brightness(3)", "brightness(1.5)", "brightness(1)"],
+        backgroundPosition: ["0% 50%", "100% 100%", "50% 0%", "0% 50%"],
+        textShadow: [
+          "0 0 0px rgba(255,255,255,0)",
+          "0 0 30px rgba(255,255,255,1), 0 0 60px rgba(0,210,255,0.8)",
+          "0 0 0px rgba(255,255,255,0)",
+        ],
+        x: [0, -2, 2, -2, 2, 0],
+        transition: { 
+          duration: 0.2, 
+          times: [0, 0.2, 0.5, 1],
+          ease: "easeInOut" 
+        }
+      });
+
+      // Return to static state
+      controls.set({ filter: "brightness(0.8)", x: 0 });
+
+      // Random interval between 3s and 20s
+      const nextInterval = Math.random() * (20000 - 3000) + 3000;
+      timeoutId = setTimeout(triggerThunder, nextInterval);
+    };
+
+    // Initial delay
+    timeoutId = setTimeout(triggerThunder, 4000);
+    
+    return () => clearTimeout(timeoutId);
+  }, [controls]);
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 pb-12 overflow-hidden">
       {/* Abstract Background Elements */}
@@ -64,23 +102,9 @@ export default function Hero() {
             I am a
           </h2>
           <motion.h2 
-            className="text-2xl md:text-4xl font-extrabold"
-            animate={{
-              color: ["#00d2ff", "#3a7bd5", "#ff007f", "#00d2ff"],
-              textShadow: [
-                "0px 0px 8px rgba(0,210,255,0.5)",
-                "0px 0px 16px rgba(58,123,213,0.8)",
-                "0px 0px 8px rgba(255,0,127,0.5)",
-                "0px 0px 8px rgba(0,210,255,0.5)",
-              ],
-              scale: [1, 1.05, 0.98, 1],
-              letterSpacing: ["0px", "2px", "0px", "0px"]
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
+            animate={controls}
+            initial={{ backgroundPosition: "0% 50%", filter: "brightness(0.8)" }}
+            className="text-2xl md:text-4xl font-extrabold thunder-text"
           >
             MERN Stack Developer
           </motion.h2>

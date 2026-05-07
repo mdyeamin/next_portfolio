@@ -101,7 +101,7 @@ const SideBar = () => {
   }, []);
 
   return (
-    <aside className="fixed left-6 top-1/2 -translate-y-1/2 z-50 flex flex-col pointer-events-none">
+    <aside className="fixed left-6 top-32 z-50 flex flex-col hidden lg:flex pointer-events-none">
       <div className="pointer-events-auto flex flex-col">
         {navItems.map((item) => {
           const sectionId = item.href === "#" || item.href === "/" ? "home" : item.href.substring(1);
