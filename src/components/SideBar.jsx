@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Home, User, Code, Mail } from "lucide-react";
-import Link from "next/link";
+import { Home, User, Code, Mail, Layers } from "lucide-react";
 
 const navItems = [
   { name: "Home", icon: <Home size={20} />, href: "#" },
   { name: "About", icon: <User size={20} />, href: "#about" },
+  { name: "Skills", icon: <Layers size={20} />, href: "#skills" },
   { name: "Projects", icon: <Code size={20} />, href: "#projects" },
   { name: "Contact", icon: <Mail size={20} />, href: "#contact" },
 ];
@@ -15,16 +15,27 @@ const NavItem = ({ item, isActive }) => {
   const [isHovered, setIsHovered] = useState(false);
   const expanded = isHovered || isActive;
 
+  const handleScroll = (e) => {
+    e.preventDefault();
+    const targetId = item.href === "#" ? "home" : item.href.substring(1);
+    const elem = document.getElementById(targetId);
+    if (elem) {
+      elem.scrollIntoView({ behavior: "smooth" });
+    } else if (targetId === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative flex items-center mr-4 md:mr-0 mb-0 md:mb-6"
+      className="relative flex items-center mb-6"
     >
-      <Link href={item.href} className="relative z-10 flex items-center">
+      <a href={item.href} onClick={handleScroll} className="relative z-10 flex items-center cursor-pointer">
         <motion.div
           layout
-          className={`flex items-center backdrop-blur-md rounded-full shadow-lg overflow-hidden cursor-pointer nav-bubble transition-colors duration-300 border ${isActive ? "bg-primary/20 border-primary/50" : "bg-black/50 border-white/10"}`}
+          className={`flex items-center rounded-full overflow-hidden nav-bubble transition-colors duration-300 border ${expanded ? "border-primary/50 bg-transparent" : "border-transparent bg-transparent"}`}
           animate={{
             width: expanded ? "auto" : "48px",
             height: "48px",
@@ -36,12 +47,12 @@ const NavItem = ({ item, isActive }) => {
             damping: 20
           }}
         >
-          <div className={`w-[48px] h-[48px] flex items-center justify-center shrink-0 transition-colors ${isActive ? "text-primary" : "text-white group-hover:text-primary"}`}>
+          <div className={`w-[48px] h-[48px] flex items-center justify-center shrink-0 transition-colors ${expanded ? "text-primary" : "text-gray-400"}`}>
             {item.icon}
           </div>
           
           <motion.span
-            className={`text-sm font-medium whitespace-nowrap ${isActive ? "text-primary" : "text-white"}`}
+            className={`text-sm font-medium whitespace-nowrap ${expanded ? "text-primary" : "text-gray-400"}`}
             initial={{ opacity: 0, x: -10 }}
             animate={{ 
               opacity: expanded ? 1 : 0, 
@@ -52,7 +63,7 @@ const NavItem = ({ item, isActive }) => {
             {item.name}
           </motion.span>
         </motion.div>
-      </Link>
+      </a>
     </div>
   );
 };
@@ -90,8 +101,8 @@ const SideBar = () => {
   }, []);
 
   return (
-    <aside className="fixed bottom-6 left-1/2 -translate-x-1/2 md:left-6 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 z-50 flex flex-row md:flex-col pointer-events-none">
-      <div className="pointer-events-auto flex flex-row md:flex-col items-center">
+    <aside className="fixed left-6 top-1/2 -translate-y-1/2 z-50 flex flex-col pointer-events-none">
+      <div className="pointer-events-auto flex flex-col">
         {navItems.map((item) => {
           const sectionId = item.href === "#" || item.href === "/" ? "home" : item.href.substring(1);
           return (

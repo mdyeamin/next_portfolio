@@ -47,19 +47,19 @@ export default function Contact() {
                   </div>
                 </a>
                 
-                <div className="flex items-center gap-4 text-gray-300">
-                  <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
-                    <Phone size={20} className="text-white" />
+                <a href="tel:+8801999230669" className="flex items-center gap-4 text-gray-300 hover:text-primary transition-colors group">
+                  <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <Phone size={20} className="text-white group-hover:text-primary" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Phone</p>
                     <p className="font-medium">+8801999230669</p>
                   </div>
-                </div>
+                </a>
 
-                <div className="flex items-center gap-4 text-gray-300">
-                  <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
-                    <MapPin size={20} className="text-white" />
+                <div className="flex items-center gap-4 text-gray-300 hover:text-primary transition-colors group cursor-default">
+                  <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <MapPin size={20} className="text-white group-hover:text-primary" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Location</p>

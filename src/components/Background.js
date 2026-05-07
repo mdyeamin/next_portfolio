@@ -1,27 +1,29 @@
 "use client";
 
-import { useCallback } from "react";
-import Particles from "react-tsparticles";
+import { useEffect, useState } from "react";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadFull } from "tsparticles";
 
 const Background = () => {
-  const particlesInit = useCallback(async (engine) => {
-    // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-    // starting from v2 you can add only the features you need reducing the bundle size
-    await loadFull(engine);
+  const [init, setInit] = useState(false);
+
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+      await loadFull(engine);
+    }).then(() => {
+      setInit(true);
+    });
   }, []);
 
-  const particlesLoaded = useCallback(async (container) => {
-    // console.log(container);
-  }, []);
+  if (!init) {
+    return <div className="fixed inset-0 -z-10 bg-transparent pointer-events-none"></div>;
+  }
 
   return (
     <div className="fixed inset-0 -z-10 bg-transparent pointer-events-none">
       <Particles
         id="tsparticles"
-        init={particlesInit}
-        loaded={particlesLoaded}
         options={{
           background: {
             color: {
@@ -37,24 +39,26 @@ const Background = () => {
               },
               onHover: {
                 enable: true,
-                mode: "grab", // Spider web grab effect
+                mode: ["grab", "attract"], // Magnetic pull and spider net
               },
               resize: true,
             },
             modes: {
               grab: {
-                distance: 200,
+                distance: 250,
                 links: {
-                  opacity: 0.8,
+                  opacity: 0.6,
                   color: "#00d2ff",
                 },
               },
+              attract: {
+                distance: 300,
+                duration: 0.4,
+                factor: 3, // Strength of the magnetic pull
+                speed: 1
+              },
               push: {
                 quantity: 4,
-              },
-              repulse: {
-                distance: 200,
-                duration: 0.4,
               },
             },
           },
@@ -64,10 +68,10 @@ const Background = () => {
             },
             links: {
               color: "#3a7bd5",
-              distance: 150,
+              distance: 180,
               enable: true,
-              opacity: 0.3,
-              width: 1,
+              opacity: 0.15, // Subtle and thin
+              width: 0.5,    // Minimalist vibe
             },
             move: {
               direction: "none",
@@ -75,8 +79,8 @@ const Background = () => {
               outModes: {
                 default: "bounce",
               },
-              random: false,
-              speed: 1.5,
+              random: true,
+              speed: 1, // Slower speed for a calm feel
               straight: false,
             },
             number: {
@@ -84,16 +88,16 @@ const Background = () => {
                 enable: true,
                 area: 800,
               },
-              value: 60,
+              value: 70,
             },
             opacity: {
-              value: 0.4,
+              value: 0.3,
             },
             shape: {
               type: "circle",
             },
             size: {
-              value: { min: 1, max: 3 },
+              value: { min: 0.5, max: 2 }, // Smaller particles
             },
           },
           detectRetina: true,
