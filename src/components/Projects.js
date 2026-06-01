@@ -40,7 +40,6 @@ const projectsData = [
     description: "A comprehensive digital workflow management tool with modern animations and responsive design.",
     image: "/DigiTools.jpeg"
   },
-
   {
     title: "Code Education",
     tech: ["React", "Context API", "Netlify"],
@@ -50,6 +49,147 @@ const projectsData = [
     image: "/educatuion.jpeg"
   }
 ];
+
+// Self-measuring Project Card with dynamic 2-line read-more expander
+function ProjectCard({ project, ExternalLink, FaGithub, motion }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const checkOverflow = () => {
+      if (textRef.current) {
+        // Line height is ~16px; 2 lines is ~32px. We check if natural scrollHeight > 38px
+        const isOverflowing = textRef.current.scrollHeight > 38;
+        setHasMore(isOverflowing);
+      }
+    };
+    checkOverflow();
+    window.addEventListener("resize", checkOverflow);
+    return () => window.removeEventListener("resize", checkOverflow);
+  }, [project.description]);
+
+  return (
+    <div className="w-[260px] sm:w-[300px] md:w-[340px] rounded-none bg-white/50 dark:bg-stone-900/30 border border-stone-200/80 dark:border-stone-800/80 overflow-hidden flex flex-col shrink-0 transition-all duration-500 ease-out hover:border-stone-400 dark:hover:border-stone-600 hover:shadow-[0_12px_24px_-10px_rgba(0,0,0,0.05)] pointer-events-auto group/card">
+      {/* Exhibition Media Area (Grayscale to Color Editorial Shift) */}
+      <div className="h-36 md:h-44 relative overflow-hidden pointer-events-auto border-b border-stone-200/60 dark:border-stone-800/60">
+        <Image
+          src={project.image}
+          alt={project.title}
+          layout="fill"
+          objectFit="cover"
+          className="scale-[1.01] group-hover/card:scale-[1.03] contrast-[1.1] group-hover/card:grayscale-0 transition-all duration-700 ease-out"
+          sizes="(max-width: 768px) 260px, (max-width: 1024px) 300px, 340px"
+        />
+
+        {/* Minimalist Archive Overlay (Desktop Only) */}
+        <div className="absolute inset-0 hidden lg:flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 z-20 bg-stone-950/40 backdrop-blur-[1px]">
+          <div className="flex gap-2 flex-wrap justify-center px-4">
+            <a href={project.live} target="_blank" rel="noreferrer">
+              <motion.button
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-4 py-2 bg-stone-950 text-stone-50 font-mono text-[9px] uppercase tracking-widest rounded-none shadow-sm flex items-center gap-1.5 hover:bg-stone-900 transition-colors border border-stone-800"
+              >
+                Live <ExternalLink size={10} />
+              </motion.button>
+            </a>
+            <a href={project.github} target="_blank" rel="noreferrer">
+              <motion.button
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-4 py-2 bg-stone-100 text-stone-950 font-mono text-[9px] uppercase tracking-widest rounded-none shadow-sm flex items-center gap-1.5 hover:bg-stone-200 transition-colors border border-stone-300"
+              >
+                {project.server ? "Client" : "Code"} <FaGithub size={10} />
+              </motion.button>
+            </a>
+            {project.server && (
+              <a href={project.server} target="_blank" rel="noreferrer">
+                <motion.button
+                  whileHover={{ y: -1 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-4 py-2 bg-stone-100 text-stone-950 font-mono text-[9px] uppercase tracking-widest rounded-none shadow-sm flex items-center gap-1.5 hover:bg-stone-200 transition-colors border border-stone-300"
+                >
+                  Server <FaGithub size={10} />
+                </motion.button>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Card Body */}
+      <div className="p-5 md:p-6 flex flex-col flex-grow pointer-events-auto bg-stone-50/20 dark:bg-stone-900/10">
+        <div className="flex justify-between items-start mb-3">
+          <h3 className="text-xs md:text-sm font-bold font-mono uppercase tracking-widest text-stone-900 dark:text-stone-100 relative pb-1.5 w-full">
+            {project.title}
+            {/* Architectural indicator line matching index directory headers */}
+            <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-stone-950 dark:bg-stone-100 transition-all duration-500 ease-out group-hover/card:w-12" />
+          </h3>
+        </div>
+
+        {/* Dynamic Clamped Description Container */}
+        <div className="mb-4 flex-grow flex flex-col justify-start">
+          <motion.div
+            animate={{ height: isExpanded ? "auto" : 36 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <p
+              ref={textRef}
+              className="text-stone-600 dark:text-stone-400 text-xs leading-relaxed font-sans"
+              style={{
+                display: "-webkit-box",
+                WebkitLineClamp: isExpanded ? "unset" : 2,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden"
+              }}
+            >
+              {project.description}
+            </p>
+          </motion.div>
+          {hasMore && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="mt-2 text-[9px] font-mono font-bold uppercase tracking-widest text-primary hover:text-stone-950 dark:hover:text-white transition-colors duration-300 text-left cursor-pointer w-fit"
+            >
+              {isExpanded ? "// READ LESS" : "// READ MORE"}
+            </button>
+          )}
+        </div>
+
+        {/* Technical Registry Index Badges (Single Line Marquee) */}
+        <div className="relative overflow-hidden w-full mb-2 py-1 mask-gradient no-scrollbar">
+          <div className="flex gap-2 animate-tech-marquee whitespace-nowrap">
+            {[...project.tech, ...project.tech].map((t, i) => (
+              <span
+                key={i}
+                className="text-[9px] font-mono uppercase tracking-wider bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-800 px-2 py-0.5 rounded-none inline-block shrink-0"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile / Tablet Actions */}
+        <div className="flex gap-2 mt-4 lg:hidden">
+          <a href={project.live} target="_blank" rel="noreferrer" className="flex-[1.3] py-2 bg-stone-950 dark:bg-stone-100 text-stone-50 dark:text-stone-950 text-center rounded-none font-mono text-[9px] uppercase tracking-widest flex items-center justify-center gap-1.5">
+            Live <ExternalLink size={10} />
+          </a>
+          <a href={project.github} target="_blank" rel="noreferrer" className="flex-1 py-2 bg-transparent text-stone-800 dark:text-stone-200 text-center rounded-none font-mono text-[9px] uppercase tracking-widest border border-stone-300 dark:border-stone-700 flex items-center justify-center gap-1.5">
+            {project.server ? "Client" : "Code"} <FaGithub size={10} />
+          </a>
+          {project.server && (
+            <a href={project.server} target="_blank" rel="noreferrer" className="flex-1 py-2 bg-transparent text-stone-800 dark:text-stone-200 text-center rounded-none font-mono text-[9px] uppercase tracking-widest border border-stone-300 dark:border-stone-700 flex items-center justify-center gap-1.5">
+              Server <FaGithub size={10} />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Projects() {
   const scrollRef = useRef(null);
@@ -160,109 +300,13 @@ export default function Projects() {
           style={{ width: "100%", scrollBehavior: "auto" }}
         >
           {marqueeItems.map((project, index) => (
-            <div
+            <ProjectCard 
               key={index}
-              className="w-[260px] sm:w-[300px] md:w-[340px] rounded-none bg-white/50 dark:bg-stone-900/30 border border-stone-200/80 dark:border-stone-800/80 overflow-hidden flex flex-col shrink-0 transition-all duration-500 ease-out hover:border-stone-400 dark:hover:border-stone-600 hover:shadow-[0_12px_24px_-10px_rgba(0,0,0,0.05)] pointer-events-auto group/card"
-            >
-              {/* Exhibition Media Area (Grayscale to Color Editorial Shift) */}
-              <div className="h-36 md:h-44 relative overflow-hidden pointer-events-auto border-b border-stone-200/60 dark:border-stone-800/60">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="scale-[1.01] group-hover/card:scale-[1.03]  contrast-[1.1] group-hover/card:grayscale-0 transition-all duration-700 ease-out"
-                  sizes="(max-width: 768px) 260px, (max-width: 1024px) 300px, 340px"
-                />
-
-                {/* Minimalist Archive Overlay (Desktop Only) */}
-                <div className="absolute inset-0 hidden lg:flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 z-20 bg-stone-950/40 backdrop-blur-[1px]">
-                  <div className="flex gap-2 flex-wrap justify-center px-4">
-                    <a href={project.live} target="_blank" rel="noreferrer">
-                      <motion.button
-                        whileHover={{ y: -1 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="px-4 py-2 bg-stone-950 text-stone-50 font-mono text-[9px] uppercase tracking-widest rounded-none shadow-sm flex items-center gap-1.5 hover:bg-stone-900 transition-colors border border-stone-800"
-                      >
-                        Live <ExternalLink size={10} />
-                      </motion.button>
-                    </a>
-                    <a href={project.github} target="_blank" rel="noreferrer">
-                      <motion.button
-                        whileHover={{ y: -1 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="px-4 py-2 bg-stone-100 text-stone-950 font-mono text-[9px] uppercase tracking-widest rounded-none shadow-sm flex items-center gap-1.5 hover:bg-stone-200 transition-colors border border-stone-300"
-                      >
-                        {project.server ? "Client" : "Code"} <FaGithub size={10} />
-                      </motion.button>
-                    </a>
-                    {project.server && (
-                      <a href={project.server} target="_blank" rel="noreferrer">
-                        <motion.button
-                          whileHover={{ y: -1 }}
-                          whileTap={{ scale: 0.98 }}
-                          className="px-4 py-2 bg-stone-100 text-stone-950 font-mono text-[9px] uppercase tracking-widest rounded-none shadow-sm flex items-center gap-1.5 hover:bg-stone-200 transition-colors border border-stone-300"
-                        >
-                          Server <FaGithub size={10} />
-                        </motion.button>
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Card Body */}
-              <div className="p-5 md:p-6 flex flex-col flex-grow pointer-events-auto bg-stone-50/20 dark:bg-stone-900/10">
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-xs md:text-sm font-bold font-mono uppercase tracking-widest text-stone-900 dark:text-stone-100 relative pb-1.5 w-full">
-                    {project.title}
-                    {/* Architectural indicator line matching index directory headers */}
-                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-stone-950 dark:bg-stone-100 transition-all duration-500 ease-out group-hover/card:w-12" />
-                  </h3>
-                </div>
-
-                <p 
-                  className="text-stone-600 dark:text-stone-400 mb-5 text-xs leading-relaxed font-sans line-clamp-3"
-                  style={{
-                    display: "-webkit-box",
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden"
-                  }}
-                >
-                  {project.description}
-                </p>
-
-                {/* Technical Registry Index Badges (Single Line Marquee) */}
-                <div className="relative overflow-hidden w-full mb-2 py-1 mask-gradient no-scrollbar">
-                  <div className="flex gap-2 animate-tech-marquee whitespace-nowrap">
-                    {[...project.tech, ...project.tech].map((t, i) => (
-                      <span
-                        key={i}
-                        className="text-[9px] font-mono uppercase tracking-wider bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-800 px-2 py-0.5 rounded-none inline-block shrink-0"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Mobile / Tablet Actions */}
-                <div className="flex gap-2 mt-4 lg:hidden">
-                  <a href={project.live} target="_blank" rel="noreferrer" className="flex-[1.3] py-2 bg-stone-950 dark:bg-stone-100 text-stone-50 dark:text-stone-950 text-center rounded-none font-mono text-[9px] uppercase tracking-widest flex items-center justify-center gap-1.5">
-                    Live <ExternalLink size={10} />
-                  </a>
-                  <a href={project.github} target="_blank" rel="noreferrer" className="flex-1 py-2 bg-transparent text-stone-800 dark:text-stone-200 text-center rounded-none font-mono text-[9px] uppercase tracking-widest border border-stone-300 dark:border-stone-700 flex items-center justify-center gap-1.5">
-                    {project.server ? "Client" : "Code"} <FaGithub size={10} />
-                  </a>
-                  {project.server && (
-                    <a href={project.server} target="_blank" rel="noreferrer" className="flex-1 py-2 bg-transparent text-stone-800 dark:text-stone-200 text-center rounded-none font-mono text-[9px] uppercase tracking-widest border border-stone-300 dark:border-stone-700 flex items-center justify-center gap-1.5">
-                      Server <FaGithub size={10} />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
+              project={project}
+              ExternalLink={ExternalLink}
+              FaGithub={FaGithub}
+              motion={motion}
+            />
           ))}
         </div>
       </div>

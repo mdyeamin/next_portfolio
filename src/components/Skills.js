@@ -66,10 +66,13 @@ function SkillGroup({ group, itemVariants }) {
       </h3>
 
       {/* Technical Registry Index Badges Container */}
-      <div
+      <motion.div 
         ref={containerRef}
-        className={`flex flex-wrap gap-1.5 relative z-10 w-full transition-all duration-300 ease-in-out ${isExpanded ? "max-h-[110px] overflow-y-auto pr-1" : "max-h-[26px] overflow-hidden"
-          }`}
+        animate={{ height: isExpanded ? "auto" : 26 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        className={`flex flex-wrap gap-1.5 relative z-10 w-full overflow-hidden ${
+          isExpanded ? "max-h-[110px] overflow-y-auto pr-1" : ""
+        }`}
       >
         {group.skills.map((skill, i) => (
           <span
@@ -79,7 +82,7 @@ function SkillGroup({ group, itemVariants }) {
             {skill}
           </span>
         ))}
-      </div>
+      </motion.div>
 
       {/* Conditional Typewriter Show Toggle */}
       {hasMore && (
