@@ -34,7 +34,7 @@ const NavItem = ({ item, isActive }) => {
     >
       <a href={item.href} onClick={handleScroll} className="relative z-10 flex items-center cursor-pointer">
         <motion.div
-          className={`flex items-center justify-center w-10 h-10 transition-colors duration-300 ${active ? "text-primary" : "text-white/40"}`}
+          className={`flex items-center justify-center w-10 h-10 transition-colors duration-300 ${active ? "text-primary" : "text-slate-400 dark:text-white/40"}`}
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.9 }}
         >

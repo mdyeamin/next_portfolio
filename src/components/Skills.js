@@ -5,23 +5,23 @@ import { Code2, Server, Wrench, Database } from "lucide-react";
 
 const skillsData = [
   {
-    category: "Frontend",
-    icon: <Code2 className="text-primary" size={24} />,
+    category: "Frontend Architecture",
+    icon: <Code2 className="text-primary" size={20} />,
     skills: ["React.js", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS", "Framer Motion"]
   },
   {
-    category: "Backend",
-    icon: <Server className="text-secondary" size={24} />,
+    category: "Backend & Systems",
+    icon: <Server className="text-primary" size={20} />,
     skills: ["Node.js", "Express.js", "REST APIs", "Axios"]
   },
   {
-    category: "Database & BaaS",
-    icon: <Database className="text-accent" size={24} />,
+    category: "Database & Auth",
+    icon: <Database className="text-primary" size={20} />,
     skills: ["MongoDB", "BetterAuth"]
   },
   {
-    category: "Tools & Others",
-    icon: <Wrench className="text-primary" size={24} />,
+    category: "Engineering Tools",
+    icon: <Wrench className="text-primary" size={20} />,
     skills: ["Git", "GitHub", "Figma", "VS Code", "Linux", "NPM"]
   }
 ];
@@ -31,65 +31,67 @@ export default function Skills() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1 }
+      transition: { staggerChildren: 0.15 }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 20 },
-    visible: { opacity: 1, scale: 1, y: 0 }
+    hidden: { opacity: 0, y: 15 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
   };
 
   return (
-    <section id="skills" className="py-20 relative bg-black/40">
-      <div className="container mx-auto px-5 md:px-12 relative z-10">
+    <section id="skills" className="py-10 relative bg-transparent">
+
+      <div className="container mx-auto px-6 md:px-12 relative z-10">
+        
+        {/* Editorial Section Header */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.8 }}
+          className="mb-8"
         >
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 relative inline-block text-white">
-            The Arsenal
-            <motion.div 
-              initial={{ width: 0 }}
-              whileInView={{ width: "100%" }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent absolute -bottom-2 left-0"
-            />
+          <p className="font-mono-meta text-[10px] uppercase tracking-widest text-primary font-bold mb-2">
+            [02/04] // THE ENGINE
+          </p>
+          <h2 className="text-3xl md:text-5xl font-serif-editorial italic font-normal text-slate-900 dark:text-white mb-4">
+            Technical Index
           </h2>
-          <p className="text-gray-400 max-w-xl mx-auto mb-4 text-xs md:text-sm mt-4">Building robust applications with a modern and scalable stack.</p>
+          <p className="text-stone-500 dark:text-stone-400 max-w-xl text-xs md:text-sm font-sans leading-relaxed">
+            A precise directory of the languages, frameworks, and system utilities formulated to build high-performance, robust architectures.
+          </p>
         </motion.div>
 
+        {/* Technical Directory Grid */}
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-50px" }}
         >
           {skillsData.map((group, index) => (
             <motion.div 
               key={index} 
               variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              className="glass-card p-6 md:p-8 rounded-[1.5rem] group hover:border-primary/40 transition-all duration-500 relative overflow-hidden flex flex-col items-center text-center shadow-xl"
+              className="p-6 md:p-8 rounded-md bg-stone-100/50 dark:bg-stone-900/30 border border-stone-200/60 dark:border-stone-800/60 flex flex-col items-start relative overflow-hidden"
             >
-              {/* Shimmer/Pulse Effect */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-1000"></div>
-              
-              <div className="relative z-10 mb-5 w-14 h-16 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 group-hover:border-primary/30 group-hover:bg-primary/5 transition-all duration-500">
+              {/* Archival Folder Header */}
+              <div className="relative z-10 mb-5 w-10 h-10 flex items-center justify-center rounded-md bg-stone-200/40 dark:bg-stone-800/40 border border-stone-300/40 dark:border-stone-700/40">
                 {group.icon}
               </div>
               
-              <h3 className="text-lg font-bold text-white mb-6 relative z-10">{group.category}</h3>
+              <h3 className="text-xs font-bold font-mono-meta tracking-wider text-slate-900 dark:text-white uppercase mb-6 border-b border-stone-200 dark:border-stone-800 pb-2 w-full">
+                {group.category}
+              </h3>
               
-              <div className="flex flex-wrap justify-center gap-2 relative z-10">
+              <div className="flex flex-wrap gap-2 relative z-10">
                 {group.skills.map((skill, i) => (
                   <span 
                     key={i} 
-                    className="px-3 py-1.5 text-[9px] font-bold bg-[#111] border border-white/5 rounded-md text-white group-hover:border-primary/20 transition-all duration-300 uppercase tracking-tighter"
+                    className="px-2.5 py-1 text-[9px] font-bold font-mono-meta bg-stone-200/30 dark:bg-stone-900/40 border border-stone-200/60 dark:border-stone-800/60 rounded-md text-stone-600 dark:text-stone-300 tracking-wider uppercase"
                   >
                     {skill}
                   </span>

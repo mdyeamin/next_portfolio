@@ -39,23 +39,22 @@ const Background = () => {
               },
               onHover: {
                 enable: true,
-                mode: ["grab", "attract"], // Magnetic pull and spider net
+                mode: ["bubble", "attract"], // Elegant hovering response (no spider web lines)
               },
               resize: true,
             },
             modes: {
-              grab: {
-                distance: 250,
-                links: {
-                  opacity: 0.6,
-                  color: "#00d2ff",
-                },
+              bubble: {
+                distance: 200,
+                size: 6,
+                duration: 2,
+                opacity: 0.8,
               },
               attract: {
-                distance: 300,
+                distance: 250,
                 duration: 0.4,
-                factor: 3, // Strength of the magnetic pull
-                speed: 1
+                factor: 4, // Gentle magnetic pull to cursor
+                speed: 1,
               },
               push: {
                 quantity: 4,
@@ -64,14 +63,10 @@ const Background = () => {
           },
           particles: {
             color: {
-              value: "#ffffff",
+              value: "var(--particle-color, #ffffff)", // Dynamically adapts to dark/light theme
             },
             links: {
-              color: "#3a7bd5",
-              distance: 180,
-              enable: true,
-              opacity: 0.15, // Subtle and thin
-              width: 0.5,    // Minimalist vibe
+              enable: false, // Properly removed spider net links completely
             },
             move: {
               direction: "none",
@@ -80,7 +75,7 @@ const Background = () => {
                 default: "bounce",
               },
               random: true,
-              speed: 1, // Slower speed for a calm feel
+              speed: 0.8, // Calming, ambient velocity
               straight: false,
             },
             number: {
@@ -88,16 +83,16 @@ const Background = () => {
                 enable: true,
                 area: 800,
               },
-              value: 70,
+              value: 60, // Cleaner density
             },
             opacity: {
-              value: 0.3,
+              value: { min: 0.15, max: 0.45 },
             },
             shape: {
               type: "circle",
             },
             size: {
-              value: { min: 0.5, max: 2 }, // Smaller particles
+              value: { min: 0.5, max: 2 }, // Elegant, tiny celestial nodes
             },
           },
           detectRetina: true,

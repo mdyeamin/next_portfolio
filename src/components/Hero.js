@@ -1,139 +1,105 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
 import Image from "next/image";
-import { useEffect } from "react";
 
 export default function Hero() {
-  const controls = useAnimation();
-
-  useEffect(() => {
-    let timeoutId;
-    
-    const triggerThunder = async () => {
-      // Strike sequence: sudden bright flash + background movement + vibration
-      await controls.start({
-        filter: ["brightness(1)", "brightness(3)", "brightness(1.5)", "brightness(1)"],
-        backgroundPosition: ["0% 50%", "100% 100%", "50% 0%", "0% 50%"],
-        textShadow: [
-          "0 0 0px rgba(255,255,255,0)",
-          "0 0 30px rgba(255,255,255,1), 0 0 60px rgba(0,210,255,0.8)",
-          "0 0 0px rgba(255,255,255,0)",
-        ],
-        x: [0, -2, 2, -2, 2, 0],
-        transition: { 
-          duration: 0.2, 
-          times: [0, 0.2, 0.5, 1],
-          ease: "easeInOut" 
-        }
-      });
-
-      // Return to static state
-      controls.set({ filter: "brightness(0.8)", x: 0 });
-
-      // Random interval between 3s and 20s
-      const nextInterval = Math.random() * (20000 - 3000) + 3000;
-      timeoutId = setTimeout(triggerThunder, nextInterval);
-    };
-
-    // Initial delay
-    timeoutId = setTimeout(triggerThunder, 4000);
-    
-    return () => clearTimeout(timeoutId);
-  }, [controls]);
-
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 pb-12 overflow-hidden">
-      {/* Abstract Background Elements */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full mix-blend-screen filter blur-[100px] opacity-70 animate-blob"></div>
-      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-accent/10 rounded-full mix-blend-screen filter blur-[100px] opacity-70 animate-blob animation-delay-2000"></div>
-      <div className="absolute bottom-1/4 left-1/2 w-96 h-96 bg-secondary/10 rounded-full mix-blend-screen filter blur-[100px] opacity-70 animate-blob animation-delay-4000"></div>
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-16 pb-6 overflow-hidden">
 
       <div className="container mx-auto px-6 md:px-12 relative z-10 flex flex-col items-center text-center">
         
-        {/* Profile Image */}
+        {/* Curated Profile Frame (Editorial Style) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, type: "spring", bounce: 0.5 }}
-          className="relative w-40 h-40 md:w-48 md:h-48 mb-8"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mb-8 rounded-full"
         >
-          <div className="w-full h-full rounded-full overflow-hidden relative">
+          <div className="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden relative">
             <Image
-              src="https://scontent.fdac5-2.fna.fbcdn.net/v/t39.30808-6/552505779_2295899874191781_1986940869533248310_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=M61m2zSNIb8Q7kNvwE2SJY0&_nc_oc=AdrFFssWTX9jFynENiDAlKsSstC0Tw0xh4Xmpk2iTQ_8YCu5PUdsMvhF8vNzj2SIyRc&_nc_zt=23&_nc_ht=scontent.fdac5-2.fna&_nc_gid=HxU3LlPAQrV3yz9j2nI3Zg&_nc_ss=7b2a8&oh=00_Af6q-8ff1BLgzBHgbce2aD0ouq0bZ2c2FjXM6VE6fz_zGQ&oe=6A022E92"
+              src='/yeamin.jpg'
               alt="Md Yeamin Profile"
               layout="fill"
               objectFit="cover"
-              className="rounded-full"
+              className="rounded-full grayscale contrast-110 brightness-95"
               priority={true}
-              sizes="(max-width: 768px) 160px, 192px"
+              sizes="(max-width: 768px) 144px, 176px"
             />
           </div>
         </motion.div>
 
+        {/* Documentary Record Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-white/10"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-stone-100 dark:bg-stone-900 border border-stone-200/60 dark:border-stone-800/60 font-mono-meta"
         >
-          <span className="relative flex h-3 w-3">
+          <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
           </span>
-          <span className="text-sm font-medium text-gray-300">Available for new opportunities</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-stone-600 dark:text-stone-400">
+            RECORD // ACTIVE STATUS
+          </span>
         </motion.div>
 
+        {/* Narrative Title */}
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-4 relative inline-block"
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-4xl md:text-5xl lg:text-6xl font-normal font-serif-editorial italic tracking-tight mb-4 text-slate-900 dark:text-white"
         >
-          Hi, I&apos;m <span className="text-gradient">Md Yeamin</span>
+          Md Yeamin
         </motion.h1>
 
+        {/* Technical Sub-spec Typewriter Label */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className="mb-8"
         >
-          <h2 className="text-xl md:text-4xl font-bold text-gray-400">
-            I am a <span className="font-extrabold text-white">MERN Stack Developer</span>
+          <h2 className="text-xs md:text-sm font-bold font-mono-meta tracking-widest text-stone-500 dark:text-stone-400 uppercase">
+            MERN STACK ARCHITECT // SOFTWARE ENGINEER
           </h2>
         </motion.div>
 
+        {/* Literary/Editorial Story Statement */}
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="max-w-xl text-sm md:text-lg text-gray-400 mb-10 leading-relaxed px-4"
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="max-w-2xl font-serif-editorial text-lg md:text-2xl text-stone-600 dark:text-stone-400 italic mb-10 leading-relaxed px-4"
         >
-          Building the web of tomorrow with precision and creativity. I turn complex problems into elegant, scalable digital solutions.
+          &ldquo;I formulate highly robust web architectures and craft dynamic, modern interfaces, weaving structured logic with clean aesthetic design.&rdquo;
         </motion.p>
 
+        {/* High-Contrast Archival CTAs */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex flex-row gap-3 px-4"
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex flex-row gap-4 px-4"
         >
           <a 
-            href="/cv.pdf" 
-            download
-            className="group relative inline-flex items-center justify-center gap-2 px-5 md:px-8 py-3 md:py-4 text-[10px] md:text-sm font-bold text-black bg-white rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95 whitespace-nowrap"
+            href="https://drive.google.com/file/d/1MyfninM4Z17ViJdVtzEXbBpiiiwHeXrH/view?usp=drive_link" 
+            target="_blank"
+            rel="noreferrer"
+            className="group relative inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-4 text-[10px] md:text-xs font-bold font-mono-meta tracking-wider uppercase text-slate-50 dark:text-slate-900 bg-slate-900 dark:bg-slate-100 rounded-md overflow-hidden transition-all hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap shadow-md shadow-black/5 hover:shadow-primary/10"
           >
-            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <span className="relative group-hover:text-white transition-colors">Download CV</span>
-            <Download size={14} className="relative group-hover:text-white transition-colors group-hover:translate-y-1" />
+            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <span>Download Dossier</span>
+            <Download size={14} className="group-hover:translate-y-0.5 transition-transform" />
           </a>
           <a 
             href="#projects" 
-            className="group inline-flex items-center justify-center gap-2 px-5 md:px-8 py-3 md:py-4 text-[10px] md:text-sm font-bold text-white glass-card rounded-full hover:bg-white/10 transition-all hover:scale-105 active:scale-95 whitespace-nowrap"
+            className="group inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-4 text-[10px] md:text-xs font-bold font-mono-meta tracking-wider uppercase text-slate-800 dark:text-white border border-stone-300 dark:border-stone-700 bg-transparent rounded-md hover:bg-stone-100 dark:hover:bg-stone-900 transition-all hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap"
           >
-            <span>View Work</span>
+            <span>Browse Works</span>
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
           </a>
         </motion.div>

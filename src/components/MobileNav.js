@@ -63,7 +63,7 @@ export default function MobileNav() {
       transition={{ duration: 0.4 }}
       className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] lg:hidden"
     >
-      <nav className="flex items-center gap-2 p-2 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl">
+      <nav className="flex items-center gap-2 p-2 bg-white/70 dark:bg-black/40 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-full shadow-lg dark:shadow-2xl">
         {navItems.map((item) => {
           const sectionId = item.href === "#" ? "home" : item.href.substring(1);
           const isActive = activeSection === sectionId;
@@ -82,7 +82,7 @@ export default function MobileNav() {
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
               )}
-              <div className={`relative z-10 ${isActive ? "text-primary" : "text-gray-400"}`}>
+              <div className={`relative z-10 ${isActive ? "text-primary" : "text-slate-500 dark:text-gray-400"}`}>
                 {item.icon}
               </div>
             </a>

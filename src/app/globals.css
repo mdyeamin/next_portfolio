@@ -1,13 +1,57 @@
+/* Import Premium Editorial Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@200..800&family=JetBrains+Mono:wght@100..800&display=swap');
+
 @import "tailwindcss";
 
+/* Configure manual class-based dark mode selector for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-background: #050505;
-  --color-foreground: #ededed;
-  --color-primary: #00d2ff;
-  --color-secondary: #3a7bd5;
-  --color-accent: #ff007f;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
   
-  --font-sans: var(--font-inter), sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-serif: "Lora", Georgia, serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+:root {
+  /* Editorial Light Paper Theme */
+  --background: #faf9f6;      /* Warm ivory paper */
+  --foreground: #1c1917;      /* Basalt dark-charcoal */
+  --primary: #78350f;         /* Deep rich amber-indigo */
+  --secondary: #1e3a8a;       /* Deep slate-blue */
+  --accent: #991b1b;          /* Editorial crimson */
+  
+  /* Glassmorphism configuration (light paper style) */
+  --glass-bg: rgba(28, 25, 23, 0.02);
+  --glass-card-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(28, 25, 23, 0.08);
+  --glass-shadow: 0 4px 20px rgba(28, 25, 23, 0.03);
+
+  /* Documentary grid details */
+  --grid-line: rgba(28, 25, 23, 0.08);
+}
+
+.dark {
+  /* Documentary Cinema Dark Theme */
+  --background: #0c0a09;      /* Cinema dark stone */
+  --foreground: #f5f5f4;      /* Soft warm white paper */
+  --primary: #fbbf24;         /* Vintage cinema gold */
+  --secondary: #60a5fa;       /* Cinema light blue */
+  --accent: #ef4444;          /* Cinema red */
+  
+  /* Glassmorphism configuration (dark cinema style) */
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-card-bg: rgba(12, 10, 9, 0.65);
+  --glass-border: rgba(245, 245, 244, 0.07);
+  --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+
+  /* Documentary grid details */
+  --grid-line: rgba(245, 245, 244, 0.07);
 }
 
 @layer base {
@@ -18,81 +62,75 @@
     font-size: 14px;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    /* Wavy animated gradient background */
-    background: linear-gradient(120deg, #050505, #0a0f1a, #050505, #0f0a1a);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-  }
-
-  @keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    
+    /* Fine-grain film-like noise overlay or structural grid pattern */
+    background-image: 
+      radial-gradient(var(--grid-line) 1px, transparent 1px);
+    background-size: 24px 24px;
+    
+    /* Smooth transition for theme toggle */
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   ::selection {
-    background-color: rgba(0, 210, 255, 0.3);
-    color: #fff;
+    background-color: rgba(120, 53, 15, 0.2);
+    color: var(--color-foreground);
   }
 }
 
 @layer utilities {
+  .font-serif-editorial {
+    font-family: var(--font-serif);
+  }
+  
+  .font-mono-meta {
+    font-family: var(--font-mono);
+  }
+
+  .documentary-grid {
+    border-top: 1px solid var(--grid-line);
+    border-bottom: 1px solid var(--grid-line);
+  }
+
   .glass {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    transition: background 0.5s ease, border-color 0.5s ease;
   }
   
   .glass-card {
-    background: rgba(15, 15, 20, 0.4);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    background: var(--glass-card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
   }
 
   .text-gradient {
-    background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
+    color: var(--color-foreground);
   }
   
   .text-gradient-accent {
-    background: linear-gradient(to right, #ff007f, #7928ca);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .nav-bubble {
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: var(--color-accent);
   }
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
   .no-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
-
-  .thunder-text {
-    background: linear-gradient(135deg, #00d2ff, #7928ca, #ff007f, #00d2ff);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    transition: background-position 0.2s ease;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -100,10 +138,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #222;
-  border-radius: 4px;
+  background: var(--glass-border);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-secondary);
+  background: var(--color-primary);
 }
