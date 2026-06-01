@@ -7,12 +7,12 @@ const skillsData = [
   {
     category: "Frontend Architecture",
     icon: <Code2 className="text-primary" size={20} />,
-    skills: ["React.js", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS", "Framer Motion"]
+    skills: ["React.js", "Next.js", "JavaScript", "TypeScript", "HeroUI", "Shadcn UI"]
   },
   {
-    category: "Backend & Systems",
+    category: "Backend & Dev",
     icon: <Server className="text-primary" size={20} />,
-    skills: ["Node.js", "Express.js", "REST APIs", "Axios"]
+    skills: ["Node.js", "Express.js", "REST APIs", "Axios", "JWT"]
   },
   {
     category: "Database & Auth",
@@ -22,7 +22,7 @@ const skillsData = [
   {
     category: "Engineering Tools",
     icon: <Wrench className="text-primary" size={20} />,
-    skills: ["Git", "GitHub", "Figma", "VS Code", "Linux", "NPM"]
+    skills: ["Git", "GitHub", "Figma", "NPM"]
   }
 ];
 

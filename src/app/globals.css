@@ -145,3 +145,22 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
 }
+
+/* Technical Registry Marquee Animation */
+@keyframes techMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-tech-marquee {
+  display: flex;
+  width: max-content;
+  animation: techMarquee 18s linear infinite;
+}
+
+/* Add an elegant gradient mask to fade marquee edges */
+.mask-gradient {
+  mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
+}
+
