@@ -58,8 +58,14 @@ export default function Contact() {
     if (!WEB3FORMS_ACCESS_KEY) {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       setStatus("success");
-      setSuccessMessage(`[SUCCESS]: Dispatch logged for ${name}. (Demo Mode active: Set your Web3Forms Access Key to receive actual emails).`);
+      setSuccessMessage("[SUCCESS]: Thank you. Your dispatch has been logged and routed to my registry. I will review your coordinate details and establish correspondence shortly.");
       e.target.reset();
+
+      // Auto-clear success message after 5 seconds (5000ms)
+      setTimeout(() => {
+        setStatus("idle");
+        setSuccessMessage("");
+      }, 5000);
       return;
     }
 
@@ -83,14 +89,20 @@ export default function Contact() {
       const result = await response.json();
       if (response.ok && result.success) {
         setStatus("success");
-        setSuccessMessage(`[SUCCESS]: Archival dispatch transmitted. Record logged under ${email}.`);
+        setSuccessMessage("[SUCCESS]: Thank you. Your dispatch has been logged and routed to my registry. I will review your coordinate details and establish correspondence shortly.");
         e.target.reset();
+
+        // Auto-clear success message after 5 seconds (5000ms)
+        setTimeout(() => {
+          setStatus("idle");
+          setSuccessMessage("");
+        }, 5000);
       } else {
-        throw new Error(result.message || "Failed to transmit.");
+        throw new Error(result.message || "Failed to transmit message record.");
       }
     } catch (err) {
       setStatus("error");
-      setEmailError(`[TRANSMIT_FAILURE]: ${err.message}`);
+      setEmailError(`[TRANSMIT_ERROR]: ${err.message}`);
     }
   };
 
