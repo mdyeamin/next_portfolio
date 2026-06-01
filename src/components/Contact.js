@@ -81,10 +81,11 @@ export default function Contact() {
         },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
-          name,
-          email,
+          "Sender Name": name,
+          "Email Address": email,
+          "Subject": subjectLine,
+          "Message": message,
           subject: subjectLine || `Portfolio Dispatch from ${name}`,
-          message,
         }),
       });
 
