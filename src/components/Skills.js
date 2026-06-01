@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Code2, Server, Wrench, Database } from "lucide-react";
 
@@ -26,6 +27,73 @@ const skillsData = [
   }
 ];
 
+// Self-measuring modular skill drawer
+function SkillGroup({ group, itemVariants }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const checkOverflow = () => {
+      if (containerRef.current) {
+        // A single line of badges is approx 24-28px high. 
+        // If the scrollHeight of all badges wrapped is greater than 30px, there is more than 1 line!
+        const isOverflowing = containerRef.current.scrollHeight > 30;
+        setHasMore(isOverflowing);
+      }
+    };
+
+    checkOverflow();
+    // Re-verify on window resize for responsive layout changes
+    window.addEventListener("resize", checkOverflow);
+    return () => window.removeEventListener("resize", checkOverflow);
+  }, [group.skills]);
+
+  return (
+    <motion.div
+      variants={itemVariants}
+      className="p-6 md:p-7 rounded-none bg-white/50 dark:bg-stone-900/30 border border-stone-200/80 dark:border-stone-800/80 flex flex-col items-start relative overflow-hidden transition-all duration-500 ease-out hover:border-stone-400 dark:hover:border-stone-600 group/skill"
+    >
+      {/* Archival Folder Icon Box */}
+      <div className="relative z-10 mb-4 w-9 h-9 flex items-center justify-center rounded-none bg-stone-100 dark:bg-stone-900 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-800 transition-colors duration-500 group-hover/skill:border-stone-400 dark:group-hover/skill:border-stone-600">
+        {group.icon}
+      </div>
+
+      <h3 className="text-[11px] font-bold font-mono tracking-widest text-stone-900 dark:text-stone-100 uppercase mb-5 border-b border-stone-200/60 dark:border-stone-800/60 pb-2 w-full relative">
+        {group.category}
+        {/* Subtle dynamic underline accent */}
+        <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-stone-950 dark:bg-stone-100 transition-all duration-500 ease-out group-hover/skill:w-8" />
+      </h3>
+
+      {/* Technical Registry Index Badges Container */}
+      <div
+        ref={containerRef}
+        className={`flex flex-wrap gap-1.5 relative z-10 w-full transition-all duration-300 ease-in-out ${isExpanded ? "max-h-[110px] overflow-y-auto pr-1" : "max-h-[26px] overflow-hidden"
+          }`}
+      >
+        {group.skills.map((skill, i) => (
+          <span
+            key={i}
+            className="px-2.5 py-1 text-[9px] font-mono font-bold bg-stone-200/30 dark:bg-stone-900/50 border border-stone-300 dark:border-stone-700/80 rounded-none text-stone-850 dark:text-stone-250 tracking-wider uppercase transition-all duration-300 hover:border-stone-400 dark:hover:border-stone-500 hover:bg-stone-100 dark:hover:bg-stone-900"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+
+      {/* Conditional Typewriter Show Toggle */}
+      {hasMore && (
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="mt-4 relative z-10 text-[9px] font-mono font-bold uppercase tracking-widest text-primary hover:text-stone-950 dark:hover:text-white transition-colors duration-300 cursor-pointer"
+        >
+          {isExpanded ? "// SHOW LESS" : "// SHOW MORE"}
+        </button>
+      )}
+    </motion.div>
+  );
+}
+
 export default function Skills() {
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -44,9 +112,9 @@ export default function Skills() {
     <section id="skills" className="py-10 relative bg-transparent">
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
-        
+
         {/* Editorial Section Header */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -65,7 +133,7 @@ export default function Skills() {
         </motion.div>
 
         {/* Technical Directory Grid */}
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           variants={containerVariants}
           initial="hidden"
@@ -73,31 +141,11 @@ export default function Skills() {
           viewport={{ once: true, margin: "-50px" }}
         >
           {skillsData.map((group, index) => (
-            <motion.div 
-              key={index} 
-              variants={itemVariants}
-              className="p-6 md:p-8 rounded-md bg-stone-100/50 dark:bg-stone-900/30 border border-stone-200/60 dark:border-stone-800/60 flex flex-col items-start relative overflow-hidden"
-            >
-              {/* Archival Folder Header */}
-              <div className="relative z-10 mb-5 w-10 h-10 flex items-center justify-center rounded-md bg-stone-200/40 dark:bg-stone-800/40 border border-stone-300/40 dark:border-stone-700/40">
-                {group.icon}
-              </div>
-              
-              <h3 className="text-xs font-bold font-mono-meta tracking-wider text-slate-900 dark:text-white uppercase mb-6 border-b border-stone-200 dark:border-stone-800 pb-2 w-full">
-                {group.category}
-              </h3>
-              
-              <div className="flex flex-wrap gap-2 relative z-10">
-                {group.skills.map((skill, i) => (
-                  <span 
-                    key={i} 
-                    className="px-2.5 py-1 text-[9px] font-bold font-mono-meta bg-stone-200/30 dark:bg-stone-900/40 border border-stone-200/60 dark:border-stone-800/60 rounded-md text-stone-600 dark:text-stone-300 tracking-wider uppercase"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
+            <SkillGroup
+              key={index}
+              group={group}
+              itemVariants={itemVariants}
+            />
           ))}
         </motion.div>
       </div>
