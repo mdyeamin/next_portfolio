@@ -90,31 +90,129 @@ export default function Hero() {
 
           </div>
 
-          {/* Right Column: Sharp Archival Dossier Portrait Frame (35%) */}
+          {/* Right Column: Sharp Japanese Pokémon Card Dossier Frame (35%) */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2">
             <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="w-[250px] sm:w-[280px] md:w-[320px] bg-white/50 dark:bg-stone-900/30 border border-stone-200 dark:border-stone-800 p-3 shadow-md rounded-none group/portrait flex flex-col hover:border-stone-400 dark:hover:border-stone-600 transition-colors duration-500"
+              className="w-[270px] sm:w-[290px] aspect-[2.5/3.5] bg-gradient-to-br from-amber-600 via-yellow-350 to-amber-500 p-[4px] shadow-2xl rounded-xl group/portrait relative overflow-hidden transition-all duration-555 hover:shadow-cyan-500/25 select-none"
+              style={{
+                boxShadow: "0 15px 35px rgba(0,0,0,0.4), 0 0 25px rgba(6,182,212,0.15)"
+              }}
             >
-              {/* Grayscale-to-color interactive shift */}
-              <div className="aspect-[4/5] relative overflow-hidden bg-stone-100 dark:bg-stone-950 border border-stone-200/60 dark:border-stone-800/60">
-                <Image
-                  src="/yeamin.jpg"
-                  alt="Md Yeamin Profile Portrait"
-                  layout="fill"
-                  objectFit="cover"
-                  className="grayscale group-hover/portrait:grayscale-0 scale-[1.01] group-hover/portrait:scale-[1.03] transition-all duration-700 ease-out"
-                  priority={true}
-                  sizes="(max-width: 768px) 250px, (max-width: 1024px) 280px, 320px"
+              {/* Inner Card Face Boundary */}
+              <div className="w-full h-full bg-stone-50 dark:bg-gradient-to-b dark:from-[#0b1220] dark:via-[#050811] dark:to-[#020408] p-3 flex flex-col justify-between relative overflow-hidden text-stone-900 dark:text-stone-100 rounded-[8px] border border-amber-500/30 dark:border-cyan-500/30 transition-colors duration-500">
+                
+                {/* Cyber Grid Background */}
+                <div 
+                  className="absolute inset-0 z-0 pointer-events-none opacity-25 dark:opacity-20 bg-[linear-gradient(rgba(217,119,6,0.06)_1px,_transparent_1px),_linear-gradient(90deg,_rgba(217,119,6,0.06)_1px,_transparent_1px)] dark:bg-[linear-gradient(rgba(6,182,212,0.08)_1px,_transparent_1px),_linear-gradient(90deg,_rgba(6,182,212,0.08)_1px,_transparent_1px)] bg-[size:8px_8px]" 
                 />
-              </div>
 
-              {/* Archival Catalog Directory Directory */}
-              <div className="mt-3 pt-2.5 border-t border-stone-200/80 dark:border-stone-800/80 flex justify-between items-center font-mono text-[8px] uppercase tracking-widest text-stone-500 dark:text-stone-500">
-                <span>[ENTRY_ID: 994-A]</span>
-                <span>LOC: KHULNA, BD</span>
+                {/* Holographic Sheen Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-amber-500/10 dark:via-cyan-400/10 to-transparent dark:to-purple-500/10 opacity-0 group-hover/portrait:opacity-100 transition-opacity duration-700 pointer-events-none z-30 mix-blend-overlay" />
+
+                <div className="relative z-10">
+                  {/* Card Title & HP Header */}
+                  <div className="flex justify-between items-baseline mb-0.5 border-b border-amber-500/20 dark:border-cyan-500/20 pb-0.5">
+                    <div className="flex flex-col">
+                      <span className="text-[5.5px] font-mono text-amber-600 dark:text-amber-400 tracking-widest leading-none font-bold">LEGENDARY CYBERNETIC</span>
+                      <span className="text-[12px] font-black font-mono tracking-wide uppercase text-stone-900 dark:text-cyan-400 leading-none mt-0.5">Md Yeamin</span>
+                    </div>
+                    <div className="flex items-center gap-0.5">
+                      <span className="text-[7px] font-mono text-amber-650 dark:text-cyan-400 font-bold">HP</span>
+                      <span className="text-xs font-black font-mono text-stone-900 dark:text-stone-50 leading-none">9990</span>
+                      <div className="w-3.5 h-3.5 rounded-full bg-amber-100 dark:bg-cyan-950 border border-amber-400 dark:border-cyan-400 flex items-center justify-center text-[9px] font-black text-amber-700 dark:text-cyan-400 font-mono shadow-sm">⚡</div>
+                    </div>
+                  </div>
+
+                  {/* Subtitle */}
+                  <div className="text-[6.5px] font-mono text-stone-555 dark:text-stone-400 mb-1 flex justify-between tracking-widest font-bold">
+                    <span>LEVEL: ULTIMATE | TYP: DEV / CYBERNETIC</span>
+                    <span>STAGE 2</span>
+                  </div>
+
+                  {/* Illustration Window (The Vector Picture Container) */}
+                  <div className="aspect-[1.35/1] relative overflow-hidden bg-stone-100 dark:bg-stone-950 border border-amber-500/20 dark:border-cyan-500/30 p-0.5 mb-1 shadow-inner">
+                    {/* Vintage Dot Grid Vector Overlay */}
+                    <div className="absolute inset-0 z-10 pointer-events-none opacity-20 mix-blend-overlay bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-stone-400 via-transparent to-stone-900 bg-[size:3px_3px] [background-repeat:repeat]" />
+                    
+                    {/* Holographic linear gloss bar */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-500/20 dark:via-cyan-400/30 to-transparent -translate-x-full group-hover/portrait:translate-x-full transition-transform duration-[1200ms] ease-out z-20" />
+
+                    <Image
+                      src="/yeamin.jpg"
+                      alt="Md Yeamin Profile Portrait"
+                      layout="fill"
+                      objectFit="cover"
+                      className="grayscale group-hover/portrait:grayscale-0 scale-[1.01] group-hover/portrait:scale-[1.04] transition-all duration-700 ease-out"
+                      priority={true}
+                      sizes="(max-width: 768px) 250px, (max-width: 1024px) 280px, 320px"
+                    />
+                  </div>
+
+                  {/* Gold Specs Ribbon */}
+                  <div className="bg-gradient-to-r from-amber-600 via-yellow-400 to-amber-500 border-y border-amber-600/40 py-0.5 text-center font-mono text-[6px] text-stone-950 tracking-wider mb-1.5 font-bold shadow-sm">
+                    NO. 001 MERN SPECIALIST HT: 5'11" WT: 160 lbs
+                  </div>
+
+                  {/* Card Attacks Section */}
+                  <div className="flex flex-col gap-1">
+                    {/* Attack 1 */}
+                    <div className="flex flex-col border-b border-stone-200 dark:border-cyan-500/10 pb-0.5">
+                      <div className="flex justify-between items-baseline">
+                        <div className="flex items-center gap-1">
+                          <span className="text-[6.5px] text-amber-600 dark:text-cyan-400 font-bold">①</span>
+                          <span className="text-[8px] font-bold font-mono uppercase tracking-wider text-stone-800 dark:text-stone-200">CODE MATRIX OVERLOAD</span>
+                        </div>
+                        <span className="text-[8.5px] font-mono text-amber-600 dark:text-cyan-400 font-bold">300x</span>
+                      </div>
+                      <p className="text-[6.5px] text-stone-600 dark:text-stone-400 font-sans leading-tight pl-2.5 mt-0.5 font-light">
+                        Triggers a destructive code storm across the entire digital ecosystem.
+                      </p>
+                    </div>
+
+                    {/* Attack 2 */}
+                    <div className="flex flex-col border-b border-stone-200 dark:border-cyan-500/10 pb-0.5">
+                      <div className="flex justify-between items-baseline">
+                        <div className="flex items-center gap-1">
+                          <span className="text-[6.5px] text-amber-600 dark:text-cyan-400 font-bold">②</span>
+                          <span className="text-[8px] font-bold font-mono uppercase tracking-wider text-stone-800 dark:text-stone-200">MERN STACK ALGORITHM</span>
+                        </div>
+                        <span className="text-[8.5px] font-mono text-amber-600 dark:text-cyan-400 font-bold">600</span>
+                      </div>
+                      <p className="text-[6.5px] text-stone-600 dark:text-stone-400 font-sans leading-tight pl-2.5 mt-0.5 font-light">
+                        Integrates all core architectural nodes to deploy a solid system barrier.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative z-10">
+                  {/* Card Bottom: Weakness, Resistance, Retreat Cost */}
+                  <div className="grid grid-cols-3 text-center border-t border-stone-200 dark:border-cyan-500/20 pt-1 font-mono text-[6px] text-stone-500 dark:text-stone-400 mt-0.5">
+                    <div>
+                      <p className="text-[4.5px] text-stone-500 uppercase font-bold">WEAKNESS</p>
+                      <p className="font-bold text-amber-700 dark:text-amber-600 mt-0.5">BUGS ×2</p>
+                    </div>
+                    <div>
+                      <p className="text-[4.5px] text-stone-500 uppercase font-bold">RESISTANCE</p>
+                      <p className="font-bold text-emerald-600 dark:text-emerald-500 mt-0.5">SPAM -30</p>
+                    </div>
+                    <div>
+                      <p className="text-[4.5px] text-stone-500 uppercase font-bold">RETREAT</p>
+                      <p className="mt-0.5 font-bold text-amber-600 dark:text-cyan-400">⚡</p>
+                    </div>
+                  </div>
+
+                  {/* Collector Details & Holographic Stamp */}
+                  <div className="mt-1 pt-1 border-t border-stone-200 dark:border-cyan-500/20 flex justify-between items-center font-mono text-[5.5px] text-stone-500 tracking-wider font-bold">
+                    <span>RARITY: ULTIMATE RARE ★</span>
+                    <span className="flex items-center gap-0.5">
+                      <span className="text-amber-600 dark:text-cyan-500 font-bold">DEV_NEXUS #001/150</span>
+                    </span>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>

@@ -9,7 +9,7 @@ export default function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="fixed top-6 right-6 z-50 w-12 h-12 rounded-full glass flex items-center justify-center opacity-0" />
+      <div className="fixed top-6 right-6 z-50 w-10 h-10 opacity-0" />
     );
   }
 
@@ -18,18 +18,11 @@ export default function ThemeToggle() {
   return (
     <motion.button
       onClick={toggleTheme}
-      className="fixed top-6 right-6 z-50 w-12 h-12 rounded-full glass flex items-center justify-center shadow-lg cursor-pointer outline-none select-none text-foreground hover:border-primary/50 hover:shadow-primary/10 transition-all duration-300"
-      whileHover={{ scale: 1.1, y: -2 }}
-      whileTap={{ scale: 0.9 }}
+      className="fixed top-6 right-6 z-50 w-10 h-10 flex items-center justify-center bg-transparent border-0 outline-none select-none cursor-pointer text-stone-850 dark:text-stone-150 hover:text-stone-950 dark:hover:text-white transition-colors duration-300"
+      whileHover={{ scale: 1.15 }}
+      whileTap={{ scale: 0.95 }}
       aria-label="Toggle visual theme"
     >
-      {/* Decorative pulse ring when hovering */}
-      <motion.div
-        className="absolute inset-0 rounded-full border border-primary/30 opacity-0"
-        whileHover={{ scale: 1.3, opacity: [0, 0.4, 0] }}
-        transition={{ repeat: Infinity, duration: 1.5, ease: "easeOut" }}
-      />
-
       <AnimatePresence mode="wait" initial={false}>
         {isDark ? (
           <motion.div
@@ -37,10 +30,10 @@ export default function ThemeToggle() {
             initial={{ rotate: -90, scale: 0, opacity: 0 }}
             animate={{ rotate: 0, scale: 1, opacity: 1 }}
             exit={{ rotate: 90, scale: 0, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            className="text-primary flex items-center justify-center"
+            transition={{ type: "spring", stiffness: 220, damping: 15 }}
+            className="flex items-center justify-center text-stone-300 hover:text-white"
           >
-            <Moon size={22} className="fill-primary/10" />
+            <Moon size={20} className="fill-stone-300/10" />
           </motion.div>
         ) : (
           <motion.div
@@ -48,10 +41,10 @@ export default function ThemeToggle() {
             initial={{ rotate: 90, scale: 0, opacity: 0 }}
             animate={{ rotate: 0, scale: 1, opacity: 1 }}
             exit={{ rotate: -90, scale: 0, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            className="text-amber-500 flex items-center justify-center"
+            transition={{ type: "spring", stiffness: 220, damping: 15 }}
+            className="flex items-center justify-center text-stone-700 hover:text-stone-950"
           >
-            <Sun size={22} className="fill-amber-500/10" />
+            <Sun size={20} className="fill-stone-700/10" />
           </motion.div>
         )}
       </AnimatePresence>
