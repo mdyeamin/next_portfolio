@@ -12,6 +12,7 @@ const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
 export default function Contact() {
   const [status, setStatus] = useState("idle"); // "idle" | "loading" | "success" | "error"
   const [emailError, setEmailError] = useState("");
+  const [transmitError, setTransmitError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
   const validateEmail = (email) => {
@@ -35,6 +36,7 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setEmailError("");
+    setTransmitError("");
     setSuccessMessage("");
     setStatus("idle");
 
@@ -102,7 +104,7 @@ export default function Contact() {
       }
     } catch (err) {
       setStatus("error");
-      setEmailError(`[TRANSMIT_ERROR]: ${err.message}`);
+      setTransmitError(`[TRANSMIT_ERROR]: ${err.message}`);
     }
   };
 
@@ -268,6 +270,14 @@ export default function Contact() {
                   <div className="mt-2 p-3 bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 rounded-none">
                     <p className="text-[10px] font-mono uppercase tracking-wider font-bold leading-normal">
                       {successMessage}
+                    </p>
+                  </div>
+                )}
+
+                {status === "error" && transmitError && (
+                  <div className="mt-2 p-3 bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 rounded-none">
+                    <p className="text-[10px] font-mono uppercase tracking-wider font-bold leading-normal">
+                      {transmitError}
                     </p>
                   </div>
                 )}
