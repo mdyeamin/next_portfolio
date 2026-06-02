@@ -1,17 +1,30 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export default function GitHubCalendar({ username }) {
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const containerRef = useRef(null);
 
   // Generate years list from 2020 to current year
   const years = Array.from(
     { length: currentYear - 2020 + 1 },
     (_, i) => 2020 + i
   ).reverse(); // e.g. [2026, 2025, 2024, 2023, 2022, 2021, 2020]
+
+  // Auto-scroll calendar to the far-right (most recent commits) on mobile load/change
+  useEffect(() => {
+    if (containerRef.current) {
+      setTimeout(() => {
+        if (containerRef.current) {
+          containerRef.current.scrollLeft = containerRef.current.scrollWidth;
+        }
+      }, 100);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (!username) return;
@@ -160,125 +173,132 @@ export default function GitHubCalendar({ username }) {
   return (
     <div className="flex flex-col gap-6">
       
-      {/* Mobile Year Selector Navigation Bar */}
-      <div className="flex sm:hidden overflow-x-auto no-scrollbar gap-2 pb-2 border-b border-stone-200 dark:border-stone-800">
-        {years.map((yr) => (
-          <button
-            key={yr}
-            onClick={() => setSelectedYear(yr)}
-            className={`px-3 py-1 font-mono text-xs transition-colors rounded-none ${
-              selectedYear === yr
-                ? "bg-primary text-white dark:text-black font-bold"
-                : "bg-stone-200/50 dark:bg-stone-900/40 text-stone-500 hover:text-stone-950 dark:hover:text-stone-100"
-            }`}
-          >
-            {yr}
-          </button>
-        ))}
-      </div>
-
-      <div className="flex flex-col sm:flex-row gap-6 items-start">
+      {/* Unified Year Selector Header with Custom Dropdown (for both large and small screens) */}
+      <div className="flex justify-between items-center pb-3 border-b border-stone-200/80 dark:border-stone-800/80 relative z-30">
+        <h4 className="text-stone-900 dark:text-stone-100 font-mono text-xs uppercase tracking-wider select-none font-bold">
+          {loading ? "[LOADING...]" : `${data?.total || 0} contributions in ${selectedYear}`}
+        </h4>
         
-        {/* Main Calendar View Column */}
-        <div className="flex-grow w-full overflow-hidden">
-          {/* Header count dynamic display */}
-          <h4 className="text-stone-900 dark:text-stone-100 font-mono text-xs uppercase tracking-wider mb-4 select-none font-bold">
-            {loading ? "[SYNCHRONIZING RECORDS...]" : `${data?.total || 0} contributions in ${selectedYear}`}
-          </h4>
-
-          {loading ? (
-            <div className="flex items-center justify-center p-12 text-stone-400 dark:text-stone-600 font-mono text-xs animate-pulse select-none">
-              [RETRIEVING ANNUAL ARCHIVE DATABASE...]
-            </div>
-          ) : (
-            <div className="flex flex-col w-full overflow-x-auto no-scrollbar py-2">
-              <div className="min-w-[670px] flex flex-col">
-                {/* Month labels */}
-                <div className="flex font-mono text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-2 pl-7 justify-between pr-4 select-none text-[9px]">
-                  <span>Jan</span>
-                  <span>Feb</span>
-                  <span>Mar</span>
-                  <span>Apr</span>
-                  <span>May</span>
-                  <span>Jun</span>
-                  <span>Jul</span>
-                  <span>Aug</span>
-                  <span>Sep</span>
-                  <span>Oct</span>
-                  <span>Nov</span>
-                  <span>Dec</span>
-                </div>
-
-                {/* Grid cells */}
-                <div className="flex gap-1.5">
-                  <div className="flex flex-col justify-between font-mono text-stone-400 dark:text-stone-500 uppercase py-1 pr-2 w-5 shrink-0 text-right select-none text-[8px]">
-                    <span>Mon</span>
-                    <span>Wed</span>
-                    <span>Fri</span>
-                  </div>
-
-                  <div className="flex flex-grow justify-between gap-1">
-                    {data?.grid?.map((week, wIndex) => (
-                      <div key={wIndex} className="flex flex-col gap-1">
-                        {week.map((day, dIndex) => (
-                          <div
-                            key={dIndex}
-                            style={{
-                              width: "11px",
-                              height: "11px",
-                              backgroundColor: day.date ? (colorPalette[day.level] || colorPalette[0]) : "transparent",
-                              borderRadius: "2px"
-                            }}
-                            className={`transition-all duration-300 hover:scale-125 hover:z-20 ${
-                              day.date ? "cursor-pointer" : "pointer-events-none"
-                            }`}
-                            title={day.date ? `${day.count} contributions on ${day.date}` : ""}
-                          />
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Legend */}
-                <div className="flex items-center justify-end gap-1.5 font-mono text-stone-400 dark:text-stone-500 mt-3 select-none text-[9px]">
-                  <span>Less</span>
-                  {colorPalette.map((col, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        width: "9px",
-                        height: "9px",
-                        backgroundColor: col,
-                        borderRadius: "1px"
-                      }}
-                    />
-                  ))}
-                  <span>More</span>
-                </div>
+        <div className="relative">
+          <button
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+            className="flex items-center gap-2 px-3 py-1.5 border border-stone-250 dark:border-stone-850 bg-stone-100/50 dark:bg-stone-950/40 text-stone-700 dark:text-stone-300 font-mono text-[10px] uppercase tracking-wider transition-colors hover:bg-stone-100 dark:hover:bg-stone-900 select-none cursor-pointer"
+          >
+            <span>Select Year: {selectedYear}</span>
+            <span className="text-[8px] opacity-70">▼</span>
+          </button>
+          
+          {dropdownOpen && (
+            <>
+              {/* Overlay Backdrop to close menu on outside tap */}
+              <div 
+                className="fixed inset-0 z-40 cursor-default" 
+                onClick={() => setDropdownOpen(false)}
+              />
+              <div className="absolute right-0 mt-1.5 w-36 bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 shadow-lg flex flex-col z-50 rounded-none">
+                {years.map((yr) => (
+                  <button
+                    key={yr}
+                    onClick={() => {
+                      setSelectedYear(yr);
+                      setDropdownOpen(false);
+                    }}
+                    className={`text-left px-4 py-2 font-mono text-xs transition-colors select-none rounded-none ${
+                      selectedYear === yr
+                        ? "bg-primary text-white dark:text-black font-bold"
+                        : "text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-900"
+                    }`}
+                  >
+                    {yr} Year
+                  </button>
+                ))}
               </div>
-            </div>
+            </>
           )}
         </div>
-
-        {/* Desktop Sidebar Year Selection Navigation */}
-        <div className="hidden sm:flex flex-col gap-1 shrink-0 w-24 border-l border-stone-250 dark:border-stone-800 pl-3">
-          {years.map((yr) => (
-            <button
-              key={yr}
-              onClick={() => setSelectedYear(yr)}
-              className={`text-left px-2 py-1.5 font-mono text-xs tracking-wider transition-all duration-200 border-l-2 ${
-                selectedYear === yr
-                  ? "border-primary text-primary font-bold bg-stone-150/40 dark:bg-stone-900/30"
-                  : "border-transparent text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100/50 dark:hover:bg-stone-950/20"
-              }`}
-            >
-              {yr}
-            </button>
-          ))}
-        </div>
-
       </div>
+
+      {/* Main Calendar View */}
+      <div className="w-full overflow-hidden">
+        {loading ? (
+          <div className="flex items-center justify-center p-12 text-stone-400 dark:text-stone-600 font-mono text-xs animate-pulse select-none">
+            [LOADING CALENDAR...]
+          </div>
+        ) : (
+          <div 
+            ref={containerRef}
+            style={{ WebkitOverflowScrolling: "touch" }}
+            className="flex flex-col w-full overflow-x-auto no-scrollbar py-2"
+          >
+            <div className="min-w-[670px] flex flex-col">
+              {/* Month labels */}
+              <div className="flex font-mono text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-2 pl-7 justify-between pr-4 select-none text-[9px]">
+                <span>Jan</span>
+                <span>Feb</span>
+                <span>Mar</span>
+                <span>Apr</span>
+                <span>May</span>
+                <span>Jun</span>
+                <span>Jul</span>
+                <span>Aug</span>
+                <span>Sep</span>
+                <span>Oct</span>
+                <span>Nov</span>
+                <span>Dec</span>
+              </div>
+
+              {/* Grid cells */}
+              <div className="flex gap-1.5">
+                <div className="flex flex-col justify-between font-mono text-stone-400 dark:text-stone-500 uppercase py-1 pr-2 w-5 shrink-0 text-right select-none text-[8px]">
+                  <span>Mon</span>
+                  <span>Wed</span>
+                  <span>Fri</span>
+                </div>
+
+                <div className="flex flex-grow justify-between gap-1">
+                  {data?.grid?.map((week, wIndex) => (
+                    <div key={wIndex} className="flex flex-col gap-1">
+                      {week.map((day, dIndex) => (
+                        <div
+                          key={dIndex}
+                          style={{
+                            width: "11px",
+                            height: "11px",
+                            backgroundColor: day.date ? (colorPalette[day.level] || colorPalette[0]) : "transparent",
+                            borderRadius: "2px"
+                          }}
+                          className={`transition-all duration-300 hover:scale-125 hover:z-20 ${
+                            day.date ? "cursor-pointer" : "pointer-events-none"
+                          }`}
+                          title={day.date ? `${day.count} contributions on ${day.date}` : ""}
+                        />
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Legend */}
+              <div className="flex items-center justify-end gap-1.5 font-mono text-stone-400 dark:text-stone-500 mt-3 select-none text-[9px]">
+                <span>Less</span>
+                {colorPalette.map((col, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      width: "9px",
+                      height: "9px",
+                      backgroundColor: col,
+                      borderRadius: "1px"
+                    }}
+                  />
+                ))}
+                <span>More</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
     </div>
   );
 }
