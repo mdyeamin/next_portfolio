@@ -55,11 +55,11 @@ function SkillGroup({ group, itemVariants }) {
       className="p-6 md:p-7 rounded-none bg-white/50 dark:bg-stone-900/30 border border-stone-200/80 dark:border-stone-800/80 flex flex-col items-start relative overflow-hidden transition-all duration-500 ease-out hover:border-stone-400 dark:hover:border-stone-600 group/skill"
     >
       {/* Archival Folder Icon Box */}
-      <div className="relative z-10 mb-4 w-9 h-9 flex items-center justify-center rounded-none bg-stone-100 dark:bg-stone-900 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-800 transition-colors duration-500 group-hover/skill:border-stone-400 dark:group-hover/skill:border-stone-600">
+      <div className="relative z-10 mb-4 w-10 h-10 flex items-center justify-center rounded-none bg-stone-100 dark:bg-stone-900 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-800 transition-colors duration-500 group-hover/skill:border-stone-400 dark:group-hover/skill:border-stone-600">
         {group.icon}
       </div>
 
-      <h3 className="text-[11px] font-bold font-mono tracking-widest text-stone-900 dark:text-stone-100 uppercase mb-5 border-b border-stone-200/60 dark:border-stone-800/60 pb-2 w-full relative">
+      <h3 className="text-xs sm:text-sm font-bold font-mono tracking-widest text-stone-900 dark:text-stone-100 uppercase mb-5 border-b border-stone-200/60 dark:border-stone-800/60 pb-2 w-full relative">
         {group.category}
         {/* Subtle dynamic underline accent */}
         <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-stone-950 dark:bg-stone-100 transition-all duration-500 ease-out group-hover/skill:w-8" />
@@ -68,7 +68,7 @@ function SkillGroup({ group, itemVariants }) {
       {/* Technical Registry Index Badges Container */}
       <motion.div 
         ref={containerRef}
-        animate={{ height: isExpanded ? "auto" : 26 }}
+        animate={{ height: isExpanded ? "auto" : 28 }}
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         className={`flex flex-wrap gap-1.5 relative z-10 w-full overflow-hidden ${
           isExpanded ? "max-h-[110px] overflow-y-auto pr-1" : ""
@@ -77,7 +77,7 @@ function SkillGroup({ group, itemVariants }) {
         {group.skills.map((skill, i) => (
           <span
             key={i}
-            className="px-2.5 py-1 text-[9px] font-mono font-bold bg-stone-200/30 dark:bg-stone-900/50 border border-stone-300 dark:border-stone-700/80 rounded-none text-stone-850 dark:text-stone-250 tracking-wider uppercase transition-all duration-300 hover:border-stone-400 dark:hover:border-stone-500 hover:bg-stone-100 dark:hover:bg-stone-900"
+            className="px-2.5 py-1 text-[10px] sm:text-xs font-mono font-bold bg-stone-200/30 dark:bg-stone-900/50 border border-stone-300 dark:border-stone-700/80 rounded-none text-stone-850 dark:text-stone-250 tracking-wider uppercase transition-all duration-300 hover:border-stone-400 dark:hover:border-stone-500 hover:bg-stone-100 dark:hover:bg-stone-900"
           >
             {skill}
           </span>
@@ -88,7 +88,7 @@ function SkillGroup({ group, itemVariants }) {
       {hasMore && (
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="mt-4 relative z-10 text-[9px] font-mono font-bold uppercase tracking-widest text-primary hover:text-stone-950 dark:hover:text-white transition-colors duration-300 cursor-pointer"
+          className="mt-4 relative z-10 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-primary hover:text-stone-950 dark:hover:text-white transition-colors duration-300 cursor-pointer"
         >
           {isExpanded ? "// SHOW LESS" : "// SHOW MORE"}
         </button>
@@ -124,13 +124,13 @@ export default function Skills() {
           transition={{ duration: 0.8 }}
           className="mb-8"
         >
-          <p className="font-mono-meta text-[10px] uppercase tracking-widest text-primary font-bold mb-2">
+          <p className="font-mono text-xs uppercase tracking-widest text-primary font-bold mb-2">
             [02/04] // THE ENGINE
           </p>
-          <h2 className="text-3xl md:text-5xl font-serif-editorial italic font-normal text-slate-900 dark:text-white mb-4">
+          <h2 className="text-3xl md:text-5xl font-serif-editorial italic font-normal text-stone-900 dark:text-white mb-4">
             Technical Index
           </h2>
-          <p className="text-stone-500 dark:text-stone-400 max-w-xl text-xs md:text-sm font-sans leading-relaxed">
+          <p className="text-stone-600 dark:text-stone-300 max-w-xl text-sm md:text-base font-sans leading-relaxed font-light">
             A precise directory of the languages, frameworks, and system utilities formulated to build high-performance, robust architectures.
           </p>
         </motion.div>

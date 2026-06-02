@@ -11,26 +11,26 @@ export default function Footer() {
   };
 
   return (
-    <footer className="py-8 border-t border-stone-200/40 dark:border-stone-850/40 relative z-10 bg-transparent">
+    <footer className="py-8 border-t border-stone-200/40 dark:border-stone-800/40 relative z-10 bg-transparent">
       <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-4">
         
         {/* Monospaced Archive Copy Credit */}
-        <p className="text-stone-500 dark:text-stone-500 text-[9px] uppercase tracking-widest font-mono-meta">
+        <p className="text-stone-500 dark:text-stone-500 text-[9px] uppercase tracking-widest font-mono">
           © {currentYear} <span className="text-stone-800 dark:text-stone-200 font-bold">Md Yeamin</span> // ARCHIVE INDEX.
         </p>
         
         {/* Social Channels */}
         <div className="flex items-center gap-5">
-          <a href="https://github.com/mdyeamin" target="_blank" rel="noreferrer" className="text-stone-500 hover:text-stone-900 dark:hover:text-stone-200 transition-colors">
+          <a href="https://github.com/mdyeamin" target="_blank" rel="noreferrer" className="text-stone-500 hover:text-primary transition-colors">
             <FaGithub size={13} />
           </a>
-          <a href="https://www.linkedin.com/in/mdyeamin05/" target="_blank" rel="noreferrer" className="text-stone-500 hover:text-stone-900 dark:hover:text-stone-200 transition-colors">
+          <a href="https://www.linkedin.com/in/mdyeamin05/" target="_blank" rel="noreferrer" className="text-stone-500 hover:text-primary transition-colors">
             <FaLinkedin size={13} />
           </a>
-          <a href="https://www.facebook.com/mdyeamin.05" target="_blank" rel="noreferrer" className="text-stone-500 hover:text-stone-900 dark:hover:text-stone-200 transition-colors">
+          <a href="https://www.facebook.com/mdyeamin.05" target="_blank" rel="noreferrer" className="text-stone-500 hover:text-primary transition-colors">
             <FaFacebook size={13} />
           </a>
-          <a href="https://twitter.com/yeamin050" target="_blank" rel="noreferrer" className="text-stone-500 hover:text-stone-900 dark:hover:text-stone-200 transition-colors">
+          <a href="https://twitter.com/yeamin050" target="_blank" rel="noreferrer" className="text-stone-500 hover:text-primary transition-colors">
             <FaTwitter size={13} />
           </a>
         </div>
@@ -49,6 +49,7 @@ export default function Footer() {
         <motion.div
           animate={{ y: [0, -3, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="text-stone-700 dark:text-stone-300 group-hover:text-primary transition-colors"
         >
           <ArrowUp size={16} />
         </motion.div>

@@ -50,29 +50,15 @@ const projectsData = [
   }
 ];
 
-// Self-measuring Project Card with dynamic 2-line read-more expander
+// Self-measuring Project Card with dynamic 2-line native clamp
 function ProjectCard({ project, ExternalLink, FaGithub, motion }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [hasMore, setHasMore] = useState(false);
-  const textRef = useRef(null);
-
-  useEffect(() => {
-    const checkOverflow = () => {
-      if (textRef.current) {
-        // Line height is ~16px; 2 lines is ~32px. We check if natural scrollHeight > 38px
-        const isOverflowing = textRef.current.scrollHeight > 38;
-        setHasMore(isOverflowing);
-      }
-    };
-    checkOverflow();
-    window.addEventListener("resize", checkOverflow);
-    return () => window.removeEventListener("resize", checkOverflow);
-  }, [project.description]);
+  const hasMore = project.description.length > 90;
 
   return (
-    <div className="w-[260px] sm:w-[300px] md:w-[340px] rounded-none bg-white/50 dark:bg-stone-900/30 border border-stone-200/80 dark:border-stone-800/80 overflow-hidden flex flex-col shrink-0 transition-all duration-500 ease-out hover:border-stone-400 dark:hover:border-stone-600 hover:shadow-[0_12px_24px_-10px_rgba(0,0,0,0.05)] pointer-events-auto group/card">
+    <div className="w-[260px] sm:w-[300px] md:w-[340px] rounded-none bg-white dark:bg-stone-900/30 border border-stone-300 dark:border-stone-800/80 overflow-hidden flex flex-col shrink-0 transition-all duration-500 ease-out hover:border-stone-450 dark:hover:border-stone-600 hover:shadow-[0_12px_24px_-10px_rgba(0,0,0,0.05)] pointer-events-auto group/card">
       {/* Exhibition Media Area (Grayscale to Color Editorial Shift) */}
-      <div className="h-36 md:h-44 relative overflow-hidden pointer-events-auto border-b border-stone-200/60 dark:border-stone-800/60">
+      <div className="h-36 md:h-44 relative overflow-hidden pointer-events-auto border-b border-stone-300 dark:border-stone-800/60">
         <Image
           src={project.image}
           alt={project.title}
@@ -121,7 +107,7 @@ function ProjectCard({ project, ExternalLink, FaGithub, motion }) {
       {/* Card Body */}
       <div className="p-5 md:p-6 flex flex-col flex-grow pointer-events-auto bg-stone-50/20 dark:bg-stone-900/10">
         <div className="flex justify-between items-start mb-3">
-          <h3 className="text-xs md:text-sm font-bold font-mono uppercase tracking-widest text-stone-900 dark:text-stone-100 relative pb-1.5 w-full">
+          <h3 className="text-sm md:text-base font-bold font-mono uppercase tracking-widest text-stone-900 dark:text-stone-100 relative pb-1.5 w-full">
             {project.title}
             {/* Architectural indicator line matching index directory headers */}
             <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-stone-950 dark:bg-stone-100 transition-all duration-500 ease-out group-hover/card:w-12" />
@@ -130,28 +116,13 @@ function ProjectCard({ project, ExternalLink, FaGithub, motion }) {
 
         {/* Dynamic Clamped Description Container */}
         <div className="mb-4 flex-grow flex flex-col justify-start">
-          <motion.div
-            animate={{ height: isExpanded ? "auto" : 36 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden"
-          >
-            <p
-              ref={textRef}
-              className="text-stone-600 dark:text-stone-400 text-xs leading-relaxed font-sans"
-              style={{
-                display: "-webkit-box",
-                WebkitLineClamp: isExpanded ? "unset" : 2,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden"
-              }}
-            >
-              {project.description}
-            </p>
-          </motion.div>
+          <p className={`text-stone-700 dark:text-stone-200 text-sm leading-relaxed font-sans font-light ${isExpanded ? "" : "line-clamp-2"}`}>
+            {project.description}
+          </p>
           {hasMore && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="mt-2 text-[9px] font-mono font-bold uppercase tracking-widest text-primary hover:text-stone-950 dark:hover:text-white transition-colors duration-300 text-left cursor-pointer w-fit"
+              className="mt-2 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-primary hover:text-stone-950 dark:hover:text-white transition-colors duration-300 text-left cursor-pointer w-fit"
             >
               {isExpanded ? "// READ LESS" : "// READ MORE"}
             </button>
@@ -159,12 +130,12 @@ function ProjectCard({ project, ExternalLink, FaGithub, motion }) {
         </div>
 
         {/* Technical Registry Index Badges (Single Line Marquee) */}
-        <div className="relative overflow-hidden w-full mb-2 py-1 mask-gradient no-scrollbar">
+        <div className="relative overflow-hidden w-full mb-2 py-2 no-scrollbar">
           <div className="flex gap-2 animate-tech-marquee whitespace-nowrap">
             {[...project.tech, ...project.tech].map((t, i) => (
               <span
                 key={i}
-                className="text-[9px] font-mono uppercase tracking-wider bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-800 px-2 py-0.5 rounded-none inline-block shrink-0"
+                className="text-[10px] sm:text-xs font-mono uppercase tracking-wider bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-400 border border-stone-250 dark:border-stone-800 px-2 py-1 rounded-none inline-block shrink-0"
               >
                 {t}
               </span>
@@ -272,13 +243,13 @@ export default function Projects() {
           transition={{ duration: 0.8 }}
           className="mb-4"
         >
-          <p className="font-mono-meta text-[10px] uppercase tracking-widest text-primary font-bold mb-2">
+          <p className="font-mono text-xs uppercase tracking-widest text-primary font-bold mb-2">
             [03/04] // THE ARCHIVE
           </p>
-          <h2 className="text-3xl md:text-5xl font-serif-editorial italic font-normal text-slate-900 dark:text-white mb-4">
+          <h2 className="text-3xl md:text-5xl font-serif-editorial italic font-normal text-stone-900 dark:text-white mb-4">
             Selected Works
           </h2>
-          <p className="text-stone-500 dark:text-stone-400 max-w-xl text-xs md:text-sm font-sans leading-relaxed">
+          <p className="text-stone-600 dark:text-stone-300 max-w-xl text-sm md:text-base font-sans leading-relaxed font-light">
             A chronological exhibition registry showcasing collaborative systems, custom web utilities, and full-stack software products.
           </p>
         </motion.div>
