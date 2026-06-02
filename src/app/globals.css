@@ -55,6 +55,10 @@
 }
 
 @layer base {
+  .container {
+    max-width: 1152px !important;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);

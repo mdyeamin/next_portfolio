@@ -6,8 +6,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata = {
-  title: "Md Yeamin | Frontend Architect & MERN Developer",
-  description: "Portfolio of Md Yeamin, a passionate Full Stack Web Developer specializing in the MERN Stack, React, Next.js, and modern UI design.",
+  title: "Bin Yeamin | Frontend Architect & MERN Developer",
+  description: "Portfolio of Bin Yeamin, a passionate Full Stack Web Developer specializing in the MERN Stack, React, Next.js, and modern UI design.",
 };
 
 export default function RootLayout({ children }) {

@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden bg-transparent">
+    <section id="home" className="relative flex items-center justify-center pt-24 pb-12 md:py-24 lg:pt-36 lg:pb-24 overflow-hidden bg-transparent">
       
       <div className="container mx-auto px-6 md:px-12 relative z-10 w-full">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 lg:gap-16 items-center w-full">
@@ -35,7 +35,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl font-normal font-serif-editorial italic tracking-tight mb-3 md:mb-4 text-stone-900 dark:text-white"
             >
-              Md Yeamin
+              Bin Yeamin
             </motion.h1>
  
             {/* Typewriter Tech Sub-specification */}
@@ -117,7 +117,7 @@ export default function Hero() {
                   <div className="flex justify-between items-baseline mb-0.5 border-b border-amber-500/20 dark:border-cyan-500/20 pb-0.5">
                     <div className="flex flex-col">
                       <span className="text-[5.5px] font-mono text-amber-600 dark:text-amber-400 tracking-widest leading-none font-bold">LEGENDARY CYBERNETIC</span>
-                      <span className="text-[12px] font-black font-mono tracking-wide uppercase text-stone-900 dark:text-cyan-400 leading-none mt-0.5">Md Yeamin</span>
+                      <span className="text-[12px] font-black font-mono tracking-wide uppercase text-stone-900 dark:text-cyan-400 leading-none mt-0.5">Bin Yeamin</span>
                     </div>
                     <div className="flex items-center gap-0.5">
                       <span className="text-[7px] font-mono text-amber-650 dark:text-cyan-400 font-bold">HP</span>
@@ -142,7 +142,7 @@ export default function Hero() {
 
                     <Image
                       src="/yeamin.jpg"
-                      alt="Md Yeamin Profile Portrait"
+                      alt="Bin Yeamin Profile Portrait"
                       layout="fill"
                       objectFit="cover"
                       className="grayscale group-hover/portrait:grayscale-0 scale-[1.01] group-hover/portrait:scale-[1.04] transition-all duration-700 ease-out"

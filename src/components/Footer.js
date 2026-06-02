@@ -15,23 +15,23 @@ export default function Footer() {
       <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-4">
         
         {/* Monospaced Archive Copy Credit */}
-        <p className="text-stone-500 dark:text-stone-500 text-[9px] uppercase tracking-widest font-mono">
-          © {currentYear} <span className="text-stone-800 dark:text-stone-200 font-bold">Md Yeamin</span> // ARCHIVE INDEX.
+        <p className="text-stone-500 dark:text-stone-500 text-xs sm:text-sm uppercase tracking-widest font-mono">
+          © {currentYear} <span className="text-stone-800 dark:text-stone-200 font-bold">Bin Yeamin</span> // ARCHIVE INDEX.
         </p>
         
         {/* Social Channels */}
         <div className="flex items-center gap-5">
           <a href="https://github.com/mdyeamin" target="_blank" rel="noreferrer" className="text-stone-500 hover:text-primary transition-colors">
-            <FaGithub size={13} />
+            <FaGithub size={18} />
           </a>
           <a href="https://www.linkedin.com/in/mdyeamin05/" target="_blank" rel="noreferrer" className="text-stone-500 hover:text-primary transition-colors">
-            <FaLinkedin size={13} />
+            <FaLinkedin size={18} />
           </a>
           <a href="https://www.facebook.com/mdyeamin.05" target="_blank" rel="noreferrer" className="text-stone-500 hover:text-primary transition-colors">
-            <FaFacebook size={13} />
+            <FaFacebook size={18} />
           </a>
           <a href="https://twitter.com/yeamin050" target="_blank" rel="noreferrer" className="text-stone-500 hover:text-primary transition-colors">
-            <FaTwitter size={13} />
+            <FaTwitter size={18} />
           </a>
         </div>
 
